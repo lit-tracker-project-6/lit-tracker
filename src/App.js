@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import axios from 'axios';
 import Qs from 'qs';
+import firebase from './firebase.js';
 
 class App extends Component {
   constructor() {
