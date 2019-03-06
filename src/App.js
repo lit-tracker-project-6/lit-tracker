@@ -3,12 +3,19 @@ import './App.css';
 import axios from 'axios';
 import Qs from 'qs';
 import firebase from './firebase.js';
+import Header from './components/Header.js';
+import Lists from './components/Lists.js';
+import Active from './components/Active.js';
+import Footer from './components/Footer.js';
+
+
 
 class App extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
-
+      // activeList: null,
+      // lists: Lists from Firebase Goes here
     }
   }
   componentDidMount() {
@@ -38,7 +45,10 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-
+        <Header />
+        <Lists />
+        <Active />
+        <Footer />
       </div>
     );
   }
