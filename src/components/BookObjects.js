@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import BookObj from './BookObj.js';
 
 class BookObjects extends Component {
   constructor() {

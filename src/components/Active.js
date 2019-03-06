@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import List from './List';
 
 class Active extends Component {
   constructor(props) {
@@ -12,7 +11,6 @@ class Active extends Component {
   render() {
     return (
       <div className='active'>
-        <List />
 
 
       </div>
