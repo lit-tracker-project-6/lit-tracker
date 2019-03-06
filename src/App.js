@@ -38,7 +38,8 @@ class App extends Component {
         xmlToJSON: true
       }
     }).then(response => {
-      console.log(response);
+      const res = response.data.GoodreadsResponse.search.results.work
+      console.log(res);
     })
   }
 
@@ -46,8 +47,8 @@ class App extends Component {
     return (
       <div className="App">
         <Header />
-        <Lists />
         <Active />
+        <Lists />
         <Footer />
       </div>
     );
