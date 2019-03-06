@@ -36,7 +36,6 @@ class App extends Component {
   }
 
   componentDidMount() {
-    this.addList('Vampire Books')
     
     axios({
       url: 'https://proxy.hackeryou.com',
