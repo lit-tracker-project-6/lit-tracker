@@ -9,8 +9,14 @@ import Active from './components/Active.js';
 import Footer from './components/Footer.js';
 
 
+const dbRef = firebase.database().ref();
+
+firebase.database().ref('lists').set({booklist1: [{ name: 'book1', author: 'author1' }, { name: 'book2', author: 'author2' } ]});
+
 
 class App extends Component {
+
+  
   constructor(props) {
     super(props);
     this.state = {
