@@ -13,7 +13,6 @@ import Footer from './components/Footer.js';
 
 class App extends Component {
   
-  
   constructor(props) {
     super(props);
     this.state = {
@@ -35,8 +34,16 @@ class App extends Component {
   
   }
 
+  pullLists = () => {
+    const dbRef = firebase.database().ref("lists");
+    dbRef.on('value', (data) => {
+      console.log(data.val());
+    })
+  }
+
   componentDidMount() {
-    
+    this.pullLists();
+
     axios({
       url: 'https://proxy.hackeryou.com',
       dataResponse: 'json',
