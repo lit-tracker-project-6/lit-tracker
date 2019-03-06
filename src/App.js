@@ -9,13 +9,10 @@ import Active from './components/Active.js';
 import Footer from './components/Footer.js';
 
 
-const dbRef = firebase.database().ref();
-
-firebase.database().ref('lists').set({booklist1: [{ name: 'book1', author: 'author1' }, { name: 'book2', author: 'author2' } ]});
 
 
 class App extends Component {
-
+  
   
   constructor(props) {
     super(props);
@@ -24,7 +21,23 @@ class App extends Component {
       // lists: Lists from Firebase Goes here
     }
   }
+
+  addList = (bookList) => {
+    const dbRef = firebase.database().ref();
+    const newList = {
+        listTitle: `${bookList}`, 
+        progress: '0%', 
+        books: {}
+      }
+    
+    // firebase.database().ref(`lists/${name}`).set(testList);
+    firebase.database().ref(`lists`).push(newList);
+  
+  }
+
   componentDidMount() {
+    this.addList('Vampire Books')
+    
     axios({
       url: 'https://proxy.hackeryou.com',
       dataResponse: 'json',
