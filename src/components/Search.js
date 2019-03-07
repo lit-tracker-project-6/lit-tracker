@@ -11,6 +11,7 @@ class Search extends Component {
       searchResults: [],
       isLoading: ""
     };
+  }
 
   
   getSearchResults = (event) => {
@@ -67,8 +68,8 @@ class Search extends Component {
         //when there is no average_rating, the value is an object. Return the below JSX when the value is a number (negative NaN)
 
         <div key={data.id["$t"]} className="bookOption" data-key={data.id["$t"]}>
-          <img src={data.best_book.image_url.substring(0, 45) + “l” + data.best_book.image_url.substring(46)} alt={`Book cover of ${data.best_book.title}`} /> */}
-
+         
+          <img src={data.best_book.image_url.substring(0, 45) + `l` + data.best_book.image_url.substring(46)} alt={`Book cover of ${data.best_book.title}`} />
           <img src={data.best_book.image_url} alt={`Book cover of ${data.best_book.title}`} />
           <p>{data.best_book.title}</p>
           <p>{data.best_book.author.name}</p>
