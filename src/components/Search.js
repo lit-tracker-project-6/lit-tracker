@@ -13,34 +13,34 @@ class Search extends Component {
   }
 
   
-  getSearchResults = (event) => {
-    event.preventDefault();
-    axios({
-      url: 'https://proxy.hackeryou.com',
-      dataResponse: 'json',
-      paramsSerializer: function (params) {
-        return Qs.stringify(params, { arrayFormat: 'brackets' })
-      },
-      params: {
-        reqUrl: `https://www.goodreads.com/search/`,
-        params: {
-          q: this.state.searchQuery,
-          key: 'WpabDZgBfnIW2CiYFtXKw',
-          search: 'all'
-        },
-        proxyHeaders: {
-          'header_params': 'value',
-        },
-        xmlToJSON: true
-      }
-    }).then(response => {
-      const res = response.data.GoodreadsResponse.search.results.work
-      console.log(res);
-      this.setState({
-        searchResults: res
-      })
-    })
-  }
+  // getSearchResults = (event) => {
+  //   event.preventDefault();
+  //   axios({
+  //     url: 'https://proxy.hackeryou.com',
+  //     dataResponse: 'json',
+  //     paramsSerializer: function (params) {
+  //       return Qs.stringify(params, { arrayFormat: 'brackets' })
+  //     },
+  //     params: {
+  //       reqUrl: `https://www.goodreads.com/search/`,
+  //       params: {
+  //         q: this.state.searchQuery,
+  //         key: 'WpabDZgBfnIW2CiYFtXKw',
+  //         search: 'all'
+  //       },
+  //       proxyHeaders: {
+  //         'header_params': 'value',
+  //       },
+  //       xmlToJSON: true
+  //     }
+  //   }).then(response => {
+  //     const res = response.data.GoodreadsResponse.search.results.work
+  //     console.log(res);
+  //     this.setState({
+  //       searchResults: res
+  //     })
+  //   })
+  // }
 
   handleChange = (event) => {
     this.setState({
