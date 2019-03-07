@@ -8,41 +8,60 @@ import Lists from './components/Lists.js';
 import Active from './components/Active.js';
 import Footer from './components/Footer.js';
 
-
-
-
 class App extends Component {
+  
   
   constructor(props) {
     super(props);
     this.state = {
       // activeList: null,
-      // lists: Lists from Firebase Goes here
+      lists: null
+      // Lists from Firebase Goes here
     }
   }
-
+  
   addList = (bookList) => {
-    const dbRef = firebase.database().ref();
+    const dbRef = firebase.database().ref('lists');
     const newList = {
         listTitle: `${bookList}`, 
         progress: '0%', 
-        books: {}
+        books: { Twilight: {title: 'Twilight', author: 'Stephenie Meyer'} }
       }
-    
-    // firebase.database().ref(`lists/${name}`).set(testList);
-    firebase.database().ref(`lists`).push(newList);
-  
+      // firebase.database().ref(`lists/${name}`).set(testList);
+      dbRef.push(newList);
   }
-
-  pullLists = () => {
-    const dbRef = firebase.database().ref("lists");
+  // this.addList('lit list');
+    
+  pullLists = (listId) => {
+    const dbRef = firebase.database().ref(`lists/${listId}`);
     dbRef.on('value', (data) => {
-      console.log(data.val());
+      const selectedList = data.val()
+      console.log(selectedList);
+      this.setState({
+        lists: selectedList
+      })
     })
   }
+  // this.pullLists('-L_K7BeJGlAXJQnjDZTr');
+  
+  addBook = (listId, bookObject) => {
+    const dbRef = firebase.database().ref(`lists/${listId}/books`);
+    console.log(listId)
+    dbRef.push(bookObject)
+    console.log("book added", bookObject)
+  }
+  // this.addBook('-L_KQzxwU_v97JMIGhRg', {title: 'twilight2', author: 'Stephenie Meyer'} )
+
+
+  deleteBook = (listId, bookId) => {
+    //bookId is a unique identifier used to find the book in the database
+    //when the bookObjects are being rendered in the activeList - pass the bookID to the button that listens for the event, the event listener will pass this method as a callback function
+    const dbRef = firebase.database().ref(`lists/${listId}/books/${bookId}`);
+    dbRef.remove();
+  }
+  // this.deleteBook('-L_KQzxwU_v97JMIGhRg', '-L_KTI_KL2G8dxuOSmRV') - this book is already deleted
 
   componentDidMount() {
-    this.pullLists();
 
     axios({
       url: 'https://proxy.hackeryou.com',
