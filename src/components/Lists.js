@@ -18,6 +18,13 @@ class Lists extends Component{
     })
   }
 
+  handleSubmit = (event) => {
+    event.preventDefault();
+    this.submitList();
+  }
+  
+  
+  submitList = () => { this.addList(this.state.newListName) }
 
   addList = (bookList) => {
     const newList = {
@@ -30,8 +37,10 @@ class Lists extends Component{
 
   //Deletes the list when the button it's attached to is clicked
   deleteList = (bookId) => {
+    if (window.confirm("Are you sure?")) {
     const dbRef = firebase.database().ref('lists/' + bookId);
     dbRef.remove();
+    }
   }
 
   // The function that will access our lists in the database to do a thing
@@ -66,7 +75,7 @@ class Lists extends Component{
       <div className='lists'>
         <div className="addList">
           <h2>Create New List</h2>
-          <form action="submit" onSubmit={() => {this.addList(this.state.newListName)}} >
+          <form action="submit" onSubmit={this.handleSubmit}>
             <input type="text" onChange={this.handleChange} required/>
             <input type="submit"/>
           </form>
