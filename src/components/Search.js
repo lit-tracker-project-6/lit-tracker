@@ -64,8 +64,14 @@ class Search extends Component {
         <div className="searchedBooks">
           {
             this.state.searchResults.map(data => {
+              console.log()
               return(
                 <div key={data.id["$t"]} className="bookOption" data-key={data.id["$t"]}>
+                   
+                  
+                {/* Get large image of book cover
+                
+                <img src={data.best_book.image_url.substring(0, 45) + “l” + data.best_book.image_url.substring(46)} alt={`Book cover of ${data.best_book.title}`} /> */}
                   <img src={data.best_book.image_url} alt={`Book cover of ${data.best_book.title}`} />
                   <p>{data.best_book.title}</p>
                   <p>{data.best_book.author.name}</p>
