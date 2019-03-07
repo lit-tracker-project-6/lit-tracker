@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import './Active.css';
-import Search from './Search.js';
 
 class Active extends Component {
   constructor(props) {
@@ -40,9 +39,14 @@ class Active extends Component {
   render() {
     return (
       <div className='active'>
-        <h2>{this.props.passedState.activeList}</h2>
-        <p>Delete this list</p>
-        <p onClick={this.props.handleSearchModalOn}> Add Books to this list</p>
+        { this.props.passedState.activeList !== null ?
+          <div className="activeListDisplay">
+            <h2>{this.props.passedState.activeList}</h2>
+            <button onClick={() => this.props.deleteList(this.props.passedState.activeListId)}>Remove this 📘</button>
+            <p onClick={this.props.handleSearchModalOn}> Add Books to this list</p>
+          </div>
+          : null 
+        }
       </div>
     );
   }

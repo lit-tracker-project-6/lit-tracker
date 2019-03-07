@@ -11,7 +11,6 @@ class Search extends Component {
       searchResults: []
     }
   }
-
   
   getSearchResults = (event) => {
     event.preventDefault();
@@ -22,7 +21,7 @@ class Search extends Component {
         return Qs.stringify(params, { arrayFormat: 'brackets' })
       },
       params: {
-        reqUrl: `https://www.goodreads.com/search/`,
+        reqUrl: `https://www.goodreads.com/search/index.xml`,
         params: {
           q: this.state.searchQuery,
           key: 'WpabDZgBfnIW2CiYFtXKw',
