@@ -16,7 +16,7 @@ class Lists extends Component{
       newListName: event.target.value
     })
   }
-
+  
 
   // The function that will access our lists in the database to do a thing
   pullLists = () => {

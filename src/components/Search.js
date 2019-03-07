@@ -11,7 +11,6 @@ class Search extends Component {
       searchResults: []
     }
   }
-
   
   getSearchResults = (event) => {
     event.preventDefault();
