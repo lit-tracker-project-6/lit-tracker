@@ -13,7 +13,9 @@ class App extends Component {
     super(props);
     this.state = {
       activeList: null,
+      activeListId: null,
       searchModal: false,
+      lists: [],
     }
   }
 
@@ -37,7 +39,8 @@ class App extends Component {
   //This function will be called when a list in the Lists panel is clicked on, to set the state of the Active List to be that clicked list
   handleActiveList = (list) => {
     this.setState({
-      activeList: list.listTitle
+      activeList: list.listTitle,
+      activeListId: list.key
     })
     console.log(list);
   }
@@ -54,6 +57,44 @@ class App extends Component {
     })
   }
 
+  // Grabs objects from within firebase convert them into an array and put that array in this.state.lists
+  componentDidMount() {
+    const dbRef = firebase.database().ref("lists");
+    dbRef.on('value', (response) => {
+      const newState = [];
+      const data = response.val();
+      for (let list in data) {
+        newState.push({
+          key: list,
+          listTitle: data[list].listTitle
+        });
+        console.log(newState);
+      }
+      this.setState({
+        lists: newState
+      })
+    })
+  }
+
+  addList = (bookList) => {
+    const newList = {
+      listTitle: `${bookList}`,
+      progress: '0%',
+      books: false
+    }
+    firebase.database().ref(`lists`).push(newList);
+  }
+
+  //Deletes the list when the button it's attached to is clicked
+  deleteList = (bookId) => {
+    const dbRef = firebase.database().ref('lists/' + bookId);
+    dbRef.remove();
+    this.setState({
+      activeList: null,
+      activeListId: null,
+    })
+  }
+
   render() {
     return (
       <div className="App">
@@ -62,9 +103,13 @@ class App extends Component {
           <Active 
           passedState={this.state}
           handleSearchModalOn={this.handleSearchModalOn}
+          deleteList={this.deleteList}
           />
           <Lists 
+          passedState={this.state}
           handleActiveList={this.handleActiveList}
+          addList={this.addList}
+          deleteList={this.deleteList}
           />
         </div>
         {this.state.searchModal === true ? 
