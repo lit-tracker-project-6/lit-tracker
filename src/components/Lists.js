@@ -16,7 +16,15 @@ class Lists extends Component{
       newListName: event.target.value
     })
   }
+
+
+  handleSubmit = (event) => {
+    event.preventDefault();
+    this.submitList();
+  }
   
+  
+  submitList = () => { this.props.addList(this.state.newListName) }
 
   // The function that will access our lists in the database to do a thing
   pullLists = () => {
@@ -31,7 +39,9 @@ class Lists extends Component{
       <div className='lists'>
         <div className="addList">
           <h2>Create New List</h2>
-          <form action="submit" onSubmit={() => {this.props.addList(this.state.newListName)}} >
+
+          <form action="submit" onSubmit={this.handleSubmit}>
+
             <input type="text" onChange={this.handleChange} required/>
             <input type="submit"/>
           </form>
