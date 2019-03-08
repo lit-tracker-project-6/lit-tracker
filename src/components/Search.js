@@ -36,13 +36,14 @@ class Search extends Component {
         },
         xmlToJSON: true
       }
-    }).then(response => {
+    })
+    .then(response => {
       const res = response.data.GoodreadsResponse.search.results.work;
       console.log(res);
       this.setState({
         isLoading: false,
         searchResults: res
-      });
+      })
     });
   };
 
@@ -56,46 +57,42 @@ class Search extends Component {
     });
   };
 
+
+
   printSearchedBooks = () => {
-    const searchedBooks = this.state.searchResults.map(data => {
-      return (
-        !isNaN(data.average_rating) && (
-          //when there is no average_rating, the value is an object. Return the below JSX when the value is a number (negative NaN)
 
-          <div
-            key={data.id["$t"]}
-            className="bookOption"
-            data-key={data.id["$t"]}
-          >
-            <img
-              src={
-                data.best_book.image_url.substring(0, 45) +
-                `l` +
-                data.best_book.image_url.substring(46)
-              }
-              alt={`Book cover of ${data.best_book.title}`}
-            />
+      let searchedBooks;
+      //declare variable otherwise the variable would be locally scoped in the below if statement
 
-            <img
-              src={data.best_book.image_url}
-              alt={`Book cover of ${data.best_book.title}`}
-            />
-            <p>{data.best_book.title}</p>
-            <p>{data.best_book.author.name}</p>
-            <p>{data.average_rating}</p>
+      if( Array.isArray(this.state.searchResults) ){
+        
+        //if results is an array - more than one result. map through the results and return
+        searchedBooks = this.state.searchResults.map(data => {
+          return (
+            !isNaN(data.average_rating) && <BookObject data={data}/>
+          )
+          //book object is the book being printed, pass it props and create this book object for every result in the array
+        })
 
-            {/* 
-            *MARK* added button that adds the book from search results to the active list,
-                 the button calls the addBook function and passes it the data of the book object
-            */}
-            <button onClick={e=>this.props.addBook(data)}>Add Book</button>
-          </div>
+      } else {
+
+        //if results is not an array - there is only one result (which is an object)
+
+        const data = this.state.searchResults;
+        
+        //check if there is an average rating, if there is, print the book. otherwise print no results
+        return (
+          !isNaN(data.average_rating) ? 
+            <BookObject data={data}/> :
+          this.noResults()
         )
-        // console.log(data.id)
-      );
-    });
 
-    return searchedBooks;
+      }
+    return searchedBooks; //when this function is called, it returns all the printed book results
+
+    //TODO: images are also weird, the length of the URL string is different when the image doesnt actually exist
+    //condiionally render the image, if the string length is longer than the a url string with an image dont add the l
+
   };
 
   render() {
@@ -111,19 +108,49 @@ class Search extends Component {
         </form>
 
         <div className="searchedBooks">
-          {this.state.isLoading ? (
-            <p>Loading...</p>
-          ) : //if searchResults is truthy (when there are no results, searchResults is undefined) print the results otherwise print the error handling message
-          this.state.searchResults ? (
-            //don't use length or it will always call noResults - because searchResults is initialized as an empty array
-            this.printSearchedBooks()
-          ) : (
-            this.noResults()
-          )}
+          {
+            this.state.isLoading ? <Loading /> : 
+              this.state.searchResults ? this.printSearchedBooks() : this.noResults()
+          }
         </div>
       </div>
     );
   }
+
+}
+
+
+//creating a component for books - makes conditional rendering less messy
+const BookObject = (props) => {
+
+  const data = props['data'];
+
+  console.log('url length' + data.best_book.image_url.length);
+
+  return (
+    <div key={data.id["$t"]} className="bookOption" data-key={data.id["$t"]}>
+      <img src={data.best_book.image_url.substring(0, 45) + `l` + data.best_book.image_url.substring(46)} alt={`Book cover of ${data.best_book.title}`} /> 
+      {/* {
+        data.best_book.image_url.length > 80 ? 
+          <img src={data.best_book.image_url.substring(0, 45) + `l` + data.best_book.image_url.substring(46)} alt={`Book cover of ${data.best_book.title}`} /> 
+          :
+          <img src='https://s.gr-assets.com/assets/nophoto/book/111x148-bcc042a9c91a29c1d680899eff700a03.png' alt={`Book cover of ${data.best_book.title}`} />
+      } */}
+      <p>{data.best_book.title}</p>
+      <p>{data.best_book.author.name}</p>
+      <p>{data.average_rating}</p>
+      <button onClick={e => this.props.addBook(data)}>Add Book</button>
+    </div>
+  )
+
+}
+
+
+//loading component - easier to make changes to loading message if segregated as a component
+const Loading = () => {
+  return(
+    <p>Loading</p>
+  )
 }
 
 export default Search;
