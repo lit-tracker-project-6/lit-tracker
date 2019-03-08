@@ -3,3 +3,11 @@
     border: 2px solid red;
     border-radius: 5px;
 }
+
+.book {
+    float:left;
+    width: 47.5%;
+    border: 2px solid red;
+    border-radius: 5px;
+    
+}
