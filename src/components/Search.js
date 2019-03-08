@@ -57,39 +57,46 @@ class Search extends Component {
   };
 
   printSearchedBooks = () => {
-    const searchedBooks = this.state.searchResults.map(data => {
-      return (
-        !isNaN(data.average_rating) && (
-          //when there is no average_rating, the value is an object. Return the below JSX when the value is a number (negative NaN)
 
-          <div
-            key={data.id["$t"]}
-            className="bookOption"
-            data-key={data.id["$t"]}
-          >
-            <img
-              src={
-                data.best_book.image_url.substring(0, 45) +
-                `l` +
-                data.best_book.image_url.substring(46)
-              }
-              alt={`Book cover of ${data.best_book.title}`}
-            />
+      let searchedBooks;
 
-            <img
-              src={data.best_book.image_url}
-              alt={`Book cover of ${data.best_book.title}`}
-            />
-            <p>{data.best_book.title}</p>
-            <p>{data.best_book.author.name}</p>
-            <p>{data.average_rating}</p>
-          </div>
+      if( Array.isArray(this.state.searchResults) ){
+
+        searchedBooks = this.state.searchResults.map(data => {
+          return (
+            !isNaN(data.average_rating) && (
+              //when there is no average_rating, the value is an object. Return the below JSX when the value is a number (negative NaN)
+              <div key={data.id["$t"]} className="bookOption" data-key={data.id["$t"]}>
+                <img src={data.best_book.image_url.substring(0, 45) + `l` + data.best_book.image_url.substring(46)} alt={`Book cover of ${data.best_book.title}`} />
+                <p>{data.best_book.title}</p>
+                <p>{data.best_book.author.name}</p>
+                <p>{data.average_rating}</p>
+              </div>
+            )
+          )
+        })
+
+      } else {
+
+        const data = this.state.searchResults;
+        
+        return (
+          !isNaN(data.average_rating) ? (
+            //when there is no average_rating, the value is an object. Return the below JSX when the value is a number (negative NaN)
+            <div key={data.id["$t"]} className="bookOption" data-key={data.id["$t"]}>
+              <img src={data.best_book.image_url.substring(0, 45) + `l` + data.best_book.image_url.substring(46)} alt={`Book cover of ${data.best_book.title}`} />
+              <p>{data.best_book.title}</p>
+              <p>{data.best_book.author.name}</p>
+              <p>{data.average_rating}</p>
+            </div>
+          ) :
+          this.noResults()
         )
-        // console.log(data.id)
-      );
-    });
 
+      }
     return searchedBooks;
+
+    //images are also weird, the length of the URL string is different when the image doesnt actually exist
   };
 
   render() {
