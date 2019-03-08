@@ -139,6 +139,7 @@ const BookObject = (props) => {
       <p>{data.best_book.title}</p>
       <p>{data.best_book.author.name}</p>
       <p>{data.average_rating}</p>
+      <button onClick={e => this.props.addBook(data)}>Add Book</button>
     </div>
   )
 
