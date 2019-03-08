@@ -18,13 +18,21 @@ class App extends Component {
     };
   }
 
-  addBook = (listId, bookObject) => {
-    const dbRef = firebase.database().ref(`lists/${listId}/books`);
-    console.log(listId);
-    dbRef.push(bookObject);
-    console.log("book added", bookObject);
+  // on call, accepts book data from Search.js to adds a book to the active list
+  addBook = (data) => {
+    // using the passed data, defines the book object
+    const bookToAdd = {
+      bookTitle: data.best_book.title,
+      author: data.best_book.author.name,
+      rating: data.average_rating,
+      isCompleted: false
+    }
+    // create a reference to the active list in Firebase
+    const targetList = this.state.activeListId
+    const dbRef = firebase.database().ref(`lists/${targetList}/books`);
+    // pushs the book object to the active list's Firebase node
+    dbRef.push(bookToAdd);
   };
-  // this.addBook('-L_KQzxwU_v97JMIGhRg', {title: 'twilight2', author: 'Stephenie Meyer'} )
 
   deleteBook = (listId, bookId) => {
     //bookId is a unique identifier used to find the book in the database
@@ -116,7 +124,7 @@ class App extends Component {
           />
         </div>
         {this.state.searchModal === true ? (
-          <Search handleSearchModalOff={this.handleSearchModalOff} />
+          <Search handleSearchModalOff={this.handleSearchModalOff} addBook={this.addBook}/>
         ) : null}
         <Footer />
       </div>

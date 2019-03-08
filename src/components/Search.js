@@ -69,7 +69,7 @@ class Search extends Component {
         //if results is an array - more than one result. map through the results and return
         searchedBooks = this.state.searchResults.map(data => {
           return (
-            !isNaN(data.average_rating) && <BookObject data={data}/>
+            !isNaN(data.average_rating) && <BookObject data={data} addBook={this.props.addBook} />
           )
           //book object is the book being printed, pass it props and create this book object for every result in the array
         })
@@ -139,7 +139,7 @@ const BookObject = (props) => {
       <p>{data.best_book.title}</p>
       <p>{data.best_book.author.name}</p>
       <p>{data.average_rating}</p>
-      <button onClick={e => this.props.addBook(data)}>Add Book</button>
+      <button onClick={e => props.addBook(data)}>Add Book</button>
     </div>
   )
 
