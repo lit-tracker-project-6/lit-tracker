@@ -36,13 +36,14 @@ class Search extends Component {
         },
         xmlToJSON: true
       }
-    }).then(response => {
+    })
+    .then(response => {
       const res = response.data.GoodreadsResponse.search.results.work;
       console.log(res);
       this.setState({
         isLoading: false,
         searchResults: res
-      });
+      })
     });
   };
 
@@ -55,6 +56,8 @@ class Search extends Component {
       searchQuery: event.target.value
     });
   };
+
+
 
   printSearchedBooks = () => {
 
@@ -122,9 +125,17 @@ const BookObject = (props) => {
 
   const data = props['data'];
 
+  console.log('url length' + data.best_book.image_url.length);
+
   return (
     <div key={data.id["$t"]} className="bookOption" data-key={data.id["$t"]}>
-      <img src={data.best_book.image_url.substring(0, 45) + `l` + data.best_book.image_url.substring(46)} alt={`Book cover of ${data.best_book.title}`} />
+      <img src={data.best_book.image_url.substring(0, 45) + `l` + data.best_book.image_url.substring(46)} alt={`Book cover of ${data.best_book.title}`} /> 
+      {/* {
+        data.best_book.image_url.length > 80 ? 
+          <img src={data.best_book.image_url.substring(0, 45) + `l` + data.best_book.image_url.substring(46)} alt={`Book cover of ${data.best_book.title}`} /> 
+          :
+          <img src='https://s.gr-assets.com/assets/nophoto/book/111x148-bcc042a9c91a29c1d680899eff700a03.png' alt={`Book cover of ${data.best_book.title}`} />
+      } */}
       <p>{data.best_book.title}</p>
       <p>{data.best_book.author.name}</p>
       <p>{data.average_rating}</p>
@@ -132,6 +143,7 @@ const BookObject = (props) => {
   )
 
 }
+
 
 //loading component - easier to make changes to loading message if segregated as a component
 const Loading = () => {
