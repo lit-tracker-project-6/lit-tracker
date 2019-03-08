@@ -59,6 +59,7 @@ class Search extends Component {
   printSearchedBooks = () => {
 
       let searchedBooks;
+      //declare variable otherwise the variable would be locally scoped in the below if statement
 
       if( Array.isArray(this.state.searchResults) ){
         
@@ -84,7 +85,7 @@ class Search extends Component {
         )
 
       }
-    return searchedBooks;
+    return searchedBooks; //when this function is called, it returns all the printed book results
 
     //TODO: images are also weird, the length of the URL string is different when the image doesnt actually exist
     //condiionally render the image, if the string length is longer than the a url string with an image dont add the l
@@ -115,11 +116,11 @@ class Search extends Component {
 
 }
 
+
+//creating a component for books - makes conditional rendering less messy
 const BookObject = (props) => {
 
-  //data is props - naming it data to keep the names consistent. 
   const data = props['data'];
-  // console.log(props.data);
 
   return (
     <div key={data.id["$t"]} className="bookOption" data-key={data.id["$t"]}>
@@ -130,9 +131,9 @@ const BookObject = (props) => {
     </div>
   )
 
-  
 }
 
+//loading component - easier to make changes to loading message if segregated as a component
 const Loading = () => {
   return(
     <p>Loading</p>
