@@ -18,22 +18,21 @@ class App extends Component {
     };
   }
 
-  // adds a book 
+// on call, accepts book data from Search.js to adds a book to the active list
   addBook = (data) => {
+  // using the passed data, defines the book object
     const bookToAdd = {
       bookTitle: data.best_book.title,
       author: data.best_book.author.name,
       rating: data.average_rating,
       isCompleted: false
     }
-
+  // create a reference to the active list in Firebase
     const targetList = this.state.activeListId
     const dbRef = firebase.database().ref(`lists/${targetList}/books`);
-    console.log('the list to update', targetList);
+  // pushs the book object to the active list's Firebase node
     dbRef.push(bookToAdd);
-    console.log("the book added", bookToAdd);
   };
-  // this.addBook('-L_KQzxwU_v97JMIGhRg', {title: 'twilight2', author: 'Stephenie Meyer'} )
 
   deleteBook = (listId, bookId) => {
     //bookId is a unique identifier used to find the book in the database
