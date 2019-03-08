@@ -61,17 +61,22 @@ class Search extends Component {
       let searchedBooks;
 
       if( Array.isArray(this.state.searchResults) ){
-
+        
+        //if results is an array - more than one result. map through the results and return
         searchedBooks = this.state.searchResults.map(data => {
           return (
             !isNaN(data.average_rating) && <BookObject data={data}/>
           )
+          //book object is the book being printed, pass it props and create this book object for every result in the array
         })
 
       } else {
 
+        //if results is not an array - there is only one result (which is an object)
+
         const data = this.state.searchResults;
         
+        //check if there is an average rating, if there is, print the book. otherwise print no results
         return (
           !isNaN(data.average_rating) ? 
             <BookObject data={data}/> :
@@ -81,7 +86,9 @@ class Search extends Component {
       }
     return searchedBooks;
 
-    //images are also weird, the length of the URL string is different when the image doesnt actually exist
+    //TODO: images are also weird, the length of the URL string is different when the image doesnt actually exist
+    //condiionally render the image, if the string length is longer than the a url string with an image dont add the l
+
   };
 
   render() {
@@ -98,15 +105,8 @@ class Search extends Component {
 
         <div className="searchedBooks">
           {
-              this.state.isLoading ? (
-              <p>Loading...</p>
-            ) : //if searchResults is truthy (when there are no results, searchResults is undefined) print the results otherwise print the error handling message
-            this.state.searchResults ? (
-              //don't use length or it will always call noResults - because searchResults is initialized as an empty array
-              this.printSearchedBooks()
-            ) : (
-              this.noResults()
-            )
+            this.state.isLoading ? <Loading /> : 
+              this.state.searchResults ? this.printSearchedBooks() : this.noResults()
           }
         </div>
       </div>
@@ -130,8 +130,13 @@ const BookObject = (props) => {
     </div>
   )
 
-  //condiionally render the image, if the string length is longer than the a url string with an image dont add the l
   
+}
+
+const Loading = () => {
+  return(
+    <p>Loading</p>
+  )
 }
 
 export default Search;
