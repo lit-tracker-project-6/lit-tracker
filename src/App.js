@@ -14,7 +14,8 @@ class App extends Component {
       activeList: null,
       activeListId: null,
       searchModal: false,
-      lists: []
+      lists: [],
+      activeListObj:{}
     };
   }
 
@@ -44,11 +45,19 @@ class App extends Component {
 
   //This function will be called when a list in the Lists panel is clicked on, to set the state of the Active List to be that clicked list
   handleActiveList = list => {
+    // make a reference to the list node location
+    const dbRef = firebase.database().ref(`lists/${list.key}`)
+    let listObj = {}
+    // take a snapshot of the data
+    dbRef.on("value", function(snapshot) {
+      listObj = snapshot.val();
+    })
+    // console.log('list?',listObj)
     this.setState({
       activeList: list.listTitle,
-      activeListId: list.key
+      activeListId: list.key,
+      activeListObj: listObj
     });
-    console.log(list);
   };
 
   handleSearchModalOn = () => {
@@ -74,7 +83,7 @@ class App extends Component {
           key: list,
           listTitle: data[list].listTitle
         });
-        console.log(newState);
+        // console.log(newState);
       }
       this.setState({
         lists: newState
