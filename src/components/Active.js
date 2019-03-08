@@ -78,7 +78,7 @@ class Active extends Component {
   } 
   // calculateProgress function ends
 
-  //put this functionality in a button 
+  //this function is called onClick
   sortBooksByRating = () => {
     // variable to store books object from passedState
     const books = this.props.passedState.activeListObj.books
@@ -91,7 +91,7 @@ class Active extends Component {
       sortedBookList.push(books[key])
     })
 
-    //sort re-arranges and returns array - pass it a function so the function can check the objects at each index
+    //sort re-arranges and returns the sorted array - pass it a callback function with a conditional to check the objects at each index
     sortedBookList.sort((a, b) => {
       if (a.rating < b.rating){
         return 1
@@ -104,12 +104,20 @@ class Active extends Component {
       }
     });
 
-    //append this new array to the dom
-    console.log(sortedBookList);
+    //setState triggering the render lifecycle. renderBooks has a check for sortedResults
     this.setState({
       sortedBooks: sortedBookList
     })
 
+  }
+
+  //onclick sort books by date added - we can get fancy and only show one button at a time
+  sortBooksByDateAdded = () => {
+
+    //setState triggering the render lifecycle method to run and renderBooks will not map sortedbooks
+    this.setState({
+      sortedBooks: []
+    })
   }
 
 
@@ -121,6 +129,7 @@ class Active extends Component {
             <h2>{this.props.passedState.activeList}</h2>
             <button onClick={() => this.props.deleteList(this.props.passedState.activeListId)}>Remove this 📘</button>
             <button onClick={this.sortBooksByRating}>Sort by Average Reviews</button>
+            <button onClick={this.sortBooksByDateAdded}>Sort by Date Added</button>
             <p onClick={this.props.handleSearchModalOn}> Add Books to this list</p>
 
             <div className="books">
