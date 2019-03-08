@@ -83,6 +83,12 @@ class Search extends Component {
             <p>{data.best_book.title}</p>
             <p>{data.best_book.author.name}</p>
             <p>{data.average_rating}</p>
+
+            {/* 
+            *MARK* added button that adds the book from search results to the active list,
+                 the button calls the addBook function and passes it the data of the book object
+            */}
+            <button onClick={e=>this.props.addBook(data)}>Add Book</button>
           </div>
         )
         // console.log(data.id)
