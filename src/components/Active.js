@@ -142,21 +142,21 @@ class Active extends Component {
   render() {
     return (
       <div className='active'>
-        { this.props.passedState.activeList !== null ?
-          <div className="activeListDisplay">
+          <div className="activeHeading clearfix">
+          <button className="close" title="close" onClick={this.props.closeActiveList}><i class="fas fa-times-circle"></i></button>
             <h2>{this.props.passedState.activeList}</h2>
-            <button onClick={() => this.props.deleteList(this.props.passedState.activeListId)}>Remove this 📘</button>
-            <button onClick={this.sortBooksByRating}>Sort by Average Reviews</button>
-            <button onClick={this.sortBooksByDateAdded}>Sort by Date Added</button>
-            <p onClick={this.props.handleSearchModalOn}> Add Books to this list</p>
-            <p onClick={this.props.handleRefresh}> REFRESH</p>
+            <div className="activeHeadingButtons">
+              <button onClick={this.props.handleSearchModalOn}> Add Books to this list</button>        
+              <button onClick={this.sortBooksByRating}>Sort by Average Reviews</button>
+              <button onClick={this.sortBooksByDateAdded}>Sort by Date Added</button>
+            </div>
+          </div>
+          <div className="activeListDisplay">
 
             <div className="books">
               {this.renderBooks()}
             </div>
           </div>
-          : null 
-        }
       </div>
     );
   }

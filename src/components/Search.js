@@ -98,15 +98,15 @@ class Search extends Component {
   render() {
     return (
       <div className="search">
-        <h2>This is the search modal</h2>
-        <p onClick={this.props.closeAndRefresh}>CLOSE AND REFRESH</p>
-
-        <h3>Search for a book!</h3>
-        <form action="submit" onSubmit={this.getSearchResults}>
-          <input type="text" onChange={this.handleChange} />
-          <input type="submit" />
-        </form>
-
+        <div className="searchHeader">
+          <h2>This is the search modal</h2>
+          <p onClick={this.props.closeAndRefresh}>CLOSE AND REFRESH</p>
+          <h3>Search for a book!</h3>
+          <form action="submit" onSubmit={this.getSearchResults}>
+            <input type="text" onChange={this.handleChange} />
+            <input type="submit" />
+          </form>
+        </div>
         <div className="searchedBooks">
           {
             this.state.isLoading ? <Loading /> : 

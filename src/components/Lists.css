@@ -1,6 +1,78 @@
-.lists{
+.lists {
+    float: left;
     width: 25%;
-    border: 2px solid black;
-    border-radius: 5px;
-    text-align: center;
+    border-right: 2px solid #deedf5;
+    text-align: left;
+    padding: 0 20px 0 0;
+}
+
+.lists h2 {
+    margin-bottom: 20px;
+}
+
+.lists form i {
+    color: #256bed;
+    transition: all 0.3s;
+}
+.lists form button[type="submit"]:hover i {
+    color: #e9d758;
+}
+
+.lists input[type="text"] {
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid #256bed;
+    border-left: 2px solid #256bed;
+    border-radius: 0 0 0 5px;
+    padding: 0 0 2px 10px;
+}
+
+.list {
+    margin: 20px 0;
+    padding: 5px 0;
+}
+
+.list:hover i {
+    color: #e9d758;
+}
+
+.hidden {
+    opacity: 0;
+    transition: all 0.3s;
+}
+
+.list:hover .hidden {
+    opacity: 1;
+}
+
+.list i {
+    float: left;
+    color: #256bed;
+    font-size: 1.1rem;
+    transition: all 0.3s;
+    margin-right: 10px;
+}
+
+.list .hidden i {
+    color: #1e1d29;
+    font-size: 0.9rem;
+
+}
+
+.list button.hidden:hover i {
+    color: #e9d758;
+}
+
+
+
+.list p {
+    margin: 0;
+    float: left;
+    width: 75%;
+    cursor: pointer;
+}
+
+.list button {
+
+    float: left;
 }

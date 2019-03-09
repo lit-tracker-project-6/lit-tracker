@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import "./App.css";
 import firebase from "./firebase.js";
 import Header from "./components/Header.js";
+import Landing from "./components/Landing.js";
 import Lists from "./components/Lists.js";
 import Active from "./components/Active.js";
 import Footer from "./components/Footer.js";
@@ -119,6 +120,13 @@ class App extends Component {
       })
   }
 
+  closeActiveList = () => {
+    this.setState({
+      activeList: null,
+      activeListId: null
+    })
+  }
+
   closeAndRefresh = () => {
     this.handleRefresh();
     this.handleSearchModalOff();
@@ -183,29 +191,54 @@ class App extends Component {
     return (
       <div className="App">
         <Header />
-        <div className="mainContent">
-          <Active
-            passedState={this.state}
-            handleSearchModalOn={this.handleSearchModalOn}
-            deleteList={this.deleteList}
-            deleteBook={this.deleteBook}
-            handleRefresh={this.handleRefresh}
-            markCompleted={this.markCompleted}
-          />
+        <div className="mainContent clearfix">
           <Lists
             passedState={this.state}
             handleActiveList={this.handleActiveList}
             addList={this.addList}
             deleteList={this.deleteList}
           />
-        </div>
-        {this.state.searchModal === true ? (
+          {(this.state.activeList === null && this.state.searchModal !== true) && <Landing />}
+          {(this.state.activeList !== null && this.state.searchModal !== true) && 
+          <Active 
+            passedState={this.state}
+            handleSearchModalOn={this.handleSearchModalOn}
+            deleteList={this.deleteList}
+            deleteBook={this.deleteBook}
+            handleRefresh={this.handleRefresh}
+            markCompleted={this.markCompleted}
+            closeActiveList={this.closeActiveList}
+          />}
+
+          {this.state.searchModal === true && 
           <Search 
             passedState={this.state}
             addBook={this.addBook}
             closeAndRefresh={this.closeAndRefresh}
           />
-        ) : null}
+          }
+
+          {/* {this.state.activeList !== null ? (
+            <Active
+              passedState={this.state}
+              handleSearchModalOn={this.handleSearchModalOn}
+              deleteList={this.deleteList}
+              deleteBook={this.deleteBook}
+              handleRefresh={this.handleRefresh}
+              markCompleted={this.markCompleted}
+              closeActiveList={this.closeActiveList}
+            />
+          ) : (
+            <Landing />
+          )} */}
+        </div>
+        {/* {this.state.searchModal === true ? (
+          <Search 
+            passedState={this.state}
+            addBook={this.addBook}
+            closeAndRefresh={this.closeAndRefresh}
+          />
+        ) : null} */}
         <Footer />
       </div>
     );
