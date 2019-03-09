@@ -1,5 +1,47 @@
-.mainContent {
-  display: flex;
-  justify-content: space-around;
+/* COLORS:
+Primary (blue): #256bed
+Secondary (yellow): #e9d758
+Off-Black: #1e1d29;
+Light-Grey: #deedf5;
+Off-White: #fbfbff;
+*/
+
+html {
+  font-size: 125%;
+  font-family: 'Josefin Sans', sans-serif;
+  font-weight: 400;
+  color: #1e1d29;
+  background: #fbfbff;
 }
 
+button {
+  background: transparent;
+  border: none;
+  padding: 0;
+  margin: 0;
+}
+
+
+
+/* Global Font Styles */
+h1,h2,h3 {
+  font-family: 'Josefin Slab', serif;
+  font-weight: 600;
+}
+
+h1 {
+  font-size: 2.5rem;
+  text-align: center;
+  letter-spacing: 3px;
+}
+
+h2 {
+  margin: 0;
+}
+
+/* APP.JS Styles */
+
+.mainContent {
+  width: 90%;
+  margin: 0 auto;
+}

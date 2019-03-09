@@ -10,7 +10,7 @@ class Header extends Component {
   render() {
     return (
       <div className='header'>
-
+        <h1>Lit Tracker</h1>
       </div>
     )
   }
