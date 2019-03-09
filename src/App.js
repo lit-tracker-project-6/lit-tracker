@@ -104,6 +104,26 @@ class App extends Component {
     });
   };
 
+  handleRefresh = () => {
+    const database = firebase.database();
+    database.ref(`lists/${this.state.activeListId}/books`)
+      .once('value')
+      .then((snapshot) => {
+        const val = snapshot.val();
+        console.log(val);
+        this.setState({
+          activeListObj: {
+            books: val
+          }
+        })
+      })
+  }
+
+  closeAndRefresh = () => {
+    this.handleRefresh();
+    this.handleSearchModalOff();
+  }
+
   handleSearchModalOn = () => {
     this.setState({
       searchModal: true
@@ -169,6 +189,7 @@ class App extends Component {
             handleSearchModalOn={this.handleSearchModalOn}
             deleteList={this.deleteList}
             deleteBook={this.deleteBook}
+            handleRefresh={this.handleRefresh}
             markCompleted={this.markCompleted}
           />
           <Lists
@@ -179,9 +200,10 @@ class App extends Component {
           />
         </div>
         {this.state.searchModal === true ? (
-          <Search
-            handleSearchModalOff={this.handleSearchModalOff}
+          <Search 
+            passedState={this.state}
             addBook={this.addBook}
+            closeAndRefresh={this.closeAndRefresh}
           />
         ) : null}
         <Footer />
