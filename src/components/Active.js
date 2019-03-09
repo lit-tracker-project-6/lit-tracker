@@ -36,6 +36,7 @@ class Active extends Component {
             <p>Rating:{each.rating}</p>
             {/* on deletion of book, pass it the attribute of the Firebase key */}
             <button value={booksKeys[i]} onClick={(e)=>{this.props.deleteBook(e)}}>Remove Book</button>
+            <button value={booksKeys[i]} onClick={(e) => {this.props.markCompleted(e)}}>Mark as Completed</button>
           </div>
         )
       })
