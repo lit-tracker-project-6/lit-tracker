@@ -1,6 +1,16 @@
 .search {
+    height: 600px;
+    overflow-y: scroll;
     border: 2px solid blue;
     border-radius: 5px;
-    width: 50%;
+    float: right;
+    width: 70%;
     margin: 0 auto;
+
+}
+
+.searchHeader {
+    position: fixed;
+    background: #fbfbff;
+    width: 60%;
 }
