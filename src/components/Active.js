@@ -19,19 +19,23 @@ class Active extends Component {
 
     // Object.keys gets the key values for the objects inside books and returns an array
       // .forEach then applies a function to each of those keys
-    Object.keys(books).forEach(key => {
+    const booksKeys = Object.keys(books)
+    
+    booksKeys.forEach(key => {
       // combine keys with books to push the individual books into the array
       booksToRender.push(books[key])
     })
 
     return (
       // use map to render the books in the booksToRender array
-      booksToRender.map(each => {
+      booksToRender.map((each, i) => {
         return (
-          <div className="book">
+          <div key={i} className="book">
             <p>Title:{each.bookTitle}</p>
             <p>Author:{each.author}</p>
             <p>Rating:{each.rating}</p>
+            {/* on deletion of book, pass it the attribute of the Firebase key */}
+            <button value={booksKeys[i]} onClick={(e)=>{this.props.deleteBook(e)}}>Remove Book</button>
           </div>
         )
       })
