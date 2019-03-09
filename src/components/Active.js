@@ -87,6 +87,7 @@ class Active extends Component {
             <h2>{this.props.passedState.activeList}</h2>
             <button onClick={() => this.props.deleteList(this.props.passedState.activeListId)}>Remove this 📘</button>
             <p onClick={this.props.handleSearchModalOn}> Add Books to this list</p>
+            <p onClick={this.props.handleRefresh}> REFRESH</p>
 
             <div className="books">
               {this.renderBooks()}
