@@ -35,7 +35,7 @@ class Active extends Component {
       booksKeys.forEach(key => {
         // combine keys with books to push the individual books into the array
         booksToRender.push(books[key])
-    
+      })
     return (
 
       //if sort button is clicked and the array is filled, render from this array
@@ -68,19 +68,6 @@ class Active extends Component {
     } // else ends
   } // FUNCTION ENDS
 
-  markCompleted = () => {
-    this.props.passedState.activeListObj.books.isCompleted = true;
-    // this.props.passedState.activeListObj[key].books.isCompleted = true;
-
-    // const completedFirebase = {
-    //   isCompleted: true
-    // };
-
-    // const targetList = this.state.activeListId;
-    // const dbRef = firebase.database().ref(`lists/${targetList}/books`);
-
-    // dbRef.push(completedFirebase);
-  }
 
   // Calculates the # of books read and renders percentage complete
   calculateProgress = () => {
