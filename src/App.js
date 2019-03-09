@@ -33,6 +33,7 @@ class App extends Component {
     const dbRef = firebase.database().ref(`lists/${targetList}/books`);
     // pushs the book object to the active list's Firebase node
     dbRef.push(bookToAdd);
+    this.handleRefresh();
   };
 
   // when called in Active.js, accepts the element data
@@ -52,6 +53,7 @@ class App extends Component {
 
       // remove target book from Firebase
       dbRef.remove();
+      this.handleRefresh();
     }
   };
 
@@ -85,6 +87,7 @@ class App extends Component {
 
     // update firebase with completion status of current book
     dbRef.update(updateCompleted);
+    this.handleRefresh();
   };
 
   //This function will be called when a list in the Lists panel is clicked on, to set the state of the Active List to be that clicked list
