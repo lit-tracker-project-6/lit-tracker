@@ -12,34 +12,44 @@ class Active extends Component {
 
   // when called, renders books in the active list window
   renderBooks = () => {
-    // variable to store books object from passedState
+    // variable to store books object
     const books = this.props.passedState.activeListObj.books
-    // prepare a variable array to store the books
-    const booksToRender = []
-
-    // Object.keys gets the key values for the objects inside books and returns an array
-      // .forEach then applies a function to each of those keys
-    const booksKeys = Object.keys(books)
     
-    booksKeys.forEach(key => {
-      // combine keys with books to push the individual books into the array
-      booksToRender.push(books[key])
-    })
-
-    return (
-      // use map to render the books in the booksToRender array
-      booksToRender.map((each, i) => {
-        return (
-          <div key={i} className="book">
-            <p>Title:{each.bookTitle}</p>
-            <p>Author:{each.author}</p>
-            <p>Rating:{each.rating}</p>
-            {/* on deletion of book, pass it the attribute of the Firebase key */}
-            <button value={booksKeys[i]} onClick={(e)=>{this.props.deleteBook(e)}}>Remove Book</button>
-          </div>
-        )
+    // check if books is empty
+    if (books === undefined) {
+      // if yes, render empty
+      return (
+        <p>This list is currently empty.</p>
+      )
+      // if no, render books
+      } else {
+      // prepare a variable array to store the books
+      const booksToRender = []
+  
+      // Object.keys gets the key values for the objects inside books and returns an array
+        // .forEach then applies a function to each of those keys
+      const booksKeys = Object.keys(books)
+      
+      booksKeys.forEach(key => {
+        // combine keys with books to push the individual books into the array
+        booksToRender.push(books[key])
       })
-    )
+  
+      return (
+        // use map to render the books in the booksToRender array
+        booksToRender.map((each, i) => {
+          return (
+            <div key={i} className="book">
+              <p>Title:{each.bookTitle}</p>
+              <p>Author:{each.author}</p>
+              <p>Rating:{each.rating}</p>
+              {/* on deletion of book, pass it the attribute of the Firebase key */}
+              <button value={booksKeys[i]} onClick={(e)=>{this.props.deleteBook(e)}}>Remove Book</button>
+            </div>
+          )
+        })
+      )
+    } // else ends
   } // FUNCTION ENDS
 
   // Calculates the # of books read and renders percentage complete
