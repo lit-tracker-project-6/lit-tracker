@@ -15,6 +15,7 @@ class Active extends Component {
     // variable to store books object
     const books = this.props.passedState.activeListObj.books
     
+
     // check if books is empty
     if (books === undefined) {
       // if yes, render empty
@@ -33,6 +34,7 @@ class Active extends Component {
       booksKeys.forEach(key => {
         // combine keys with books to push the individual books into the array
         booksToRender.push(books[key])
+
       })
   
       return (
@@ -45,12 +47,28 @@ class Active extends Component {
               <p>Rating:{each.rating}</p>
               {/* on deletion of book, pass it the attribute of the Firebase key */}
               <button value={booksKeys[i]} onClick={(e)=>{this.props.deleteBook(e)}}>Remove Book</button>
+              <button value={booksKeys[i]} onClick={(e) => {this.props.markCompleted(e)}}>Mark as Completed</button>
             </div>
+                       
           )
         })
       )
     } // else ends
   } // FUNCTION ENDS
+
+  markCompleted = () => {
+    this.props.passedState.activeListObj.books.isCompleted = true;
+    // this.props.passedState.activeListObj[key].books.isCompleted = true;
+
+    // const completedFirebase = {
+    //   isCompleted: true
+    // };
+
+    // const targetList = this.state.activeListId;
+    // const dbRef = firebase.database().ref(`lists/${targetList}/books`);
+
+    // dbRef.push(completedFirebase);
+  }
 
   // Calculates the # of books read and renders percentage complete
   calculateProgress = () => {
