@@ -21,19 +21,22 @@ class App extends Component {
   }
 
   // on call, accepts book data from Search.js to adds a book to the active list
-  addBook = data => {
+  addBook = (data) => {
     // using the passed data, defines the book object
     const bookToAdd = {
       bookTitle: data.best_book.title,
       author: data.best_book.author.name,
       rating: data.average_rating,
+      image: data.best_book.image_url,
       isCompleted: false
     };
     // create a reference to the active list in Firebase
     const targetList = this.state.activeListId;
     const dbRef = firebase.database().ref(`lists/${targetList}/books`);
     // pushs the book object to the active list's Firebase node
-    dbRef.push(bookToAdd);
+    dbRef.push(bookToAdd).then(()=> {
+      this.handleRefresh();
+    })
   };
 
   // when called in Active.js, accepts the element data
@@ -52,7 +55,9 @@ class App extends Component {
       console.log("path to target", dbRef.path.pieces_);
 
       // remove target book from Firebase
-      dbRef.remove();
+      dbRef.remove()
+
+      this.handleRefresh()
     }
   };
 
@@ -69,23 +74,24 @@ class App extends Component {
 
     // checking/evaluating value of completion in firebase
     let checkCompletion;
-    dbRef.on("value", data => {
-      checkCompletion = data.val().isCompleted;
-    });
-
-    // conditional statement to "toggle" value of isCompleted state
+    dbRef.once("value").then(function(snapshot) {
+      checkCompletion = snapshot.val().isCompleted;
+    })
+      // conditional statement to "toggle" value of isCompleted state
     if (checkCompletion === false) {
       updateCompleted = {
         isCompleted: true
       };
+      dbRef.update(updateCompleted)
     } else {
       updateCompleted = {
         isCompleted: false
       };
     }
-
     // update firebase with completion status of current book
-    dbRef.update(updateCompleted);
+    dbRef.update(updateCompleted)
+    
+    this.handleRefresh();
   };
 
   //This function will be called when a list in the Lists panel is clicked on, to set the state of the Active List to be that clicked list
@@ -111,7 +117,6 @@ class App extends Component {
       .once('value')
       .then((snapshot) => {
         const val = snapshot.val();
-        console.log(val);
         this.setState({
           activeListObj: {
             books: val
