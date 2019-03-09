@@ -7,6 +7,7 @@ class Active extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      sortedBooks: []
     }
   }
 
@@ -34,10 +35,21 @@ class Active extends Component {
       booksKeys.forEach(key => {
         // combine keys with books to push the individual books into the array
         booksToRender.push(books[key])
+    
+    return (
 
-      })
-  
-      return (
+      //if sort button is clicked and the array is filled, render from this array
+      this.state.sortedBooks.length > 0 ?
+        this.state.sortedBooks.map(each => {
+          return (
+            <div className="book">
+              <p>Title:{each.bookTitle}</p>
+              <p>Author:{each.author}</p>
+              <p>Rating:{each.rating}</p>
+            </div>
+          )
+        }) :
+      
         // use map to render the books in the booksToRender array
         booksToRender.map((each, i) => {
           return (
@@ -96,6 +108,48 @@ class Active extends Component {
   } 
   // calculateProgress function ends
 
+  //this function is called onClick
+  sortBooksByRating = () => {
+    // variable to store books object from passedState
+    const books = this.props.passedState.activeListObj.books
+    // prepare a variable array to store the books
+    const sortedBookList = []
+    // Object.keys gets the key values for the objects inside books and returns an array
+    // .forEach then applies a function to each of those keys
+    Object.keys(books).forEach(key => {
+      // combine keys with books to push the individual books into the array
+      sortedBookList.push(books[key])
+    })
+
+    //sort re-arranges and returns the sorted array - pass it a callback function with a conditional to check the objects at each index
+    sortedBookList.sort((a, b) => {
+      if (a.rating < b.rating){
+        return 1
+        //return 1 means if A is less than B, sort A to an index higher than B (A comes after B)
+      }
+
+      if(a.rating > b.rating){
+        return -1
+        //return -1 means if A is greater than B, sort A to a lower index than B (A comes before B)
+      }
+    });
+
+    //setState triggering the render lifecycle. renderBooks has a check for sortedResults
+    this.setState({
+      sortedBooks: sortedBookList
+    })
+
+  }
+
+  //onclick sort books by date added - we can get fancy and only show one button at a time
+  sortBooksByDateAdded = () => {
+
+    //setState triggering the render lifecycle method to run and renderBooks will not map sortedbooks
+    this.setState({
+      sortedBooks: []
+    })
+  }
+
 
   render() {
     return (
@@ -104,6 +158,8 @@ class Active extends Component {
           <div className="activeListDisplay">
             <h2>{this.props.passedState.activeList}</h2>
             <button onClick={() => this.props.deleteList(this.props.passedState.activeListId)}>Remove this 📘</button>
+            <button onClick={this.sortBooksByRating}>Sort by Average Reviews</button>
+            <button onClick={this.sortBooksByDateAdded}>Sort by Date Added</button>
             <p onClick={this.props.handleSearchModalOn}> Add Books to this list</p>
             <p onClick={this.props.handleRefresh}> REFRESH</p>
 
@@ -116,6 +172,13 @@ class Active extends Component {
       </div>
     );
   }
-}
 
+}
 export default Active;
+
+
+
+  //when sort by average ratings is selected:
+    //create a new array in the correct sorting order
+      //map over this new array
+   //when sort by release date selected, simply append without sorting   
