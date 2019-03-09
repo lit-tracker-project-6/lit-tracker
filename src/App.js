@@ -26,6 +26,7 @@ class App extends Component {
       bookTitle: data.best_book.title,
       author: data.best_book.author.name,
       rating: data.average_rating,
+      image: data.bookCover,
       isCompleted: false
     };
     // create a reference to the active list in Firebase
