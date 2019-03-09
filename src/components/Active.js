@@ -34,14 +34,31 @@ class Active extends Component {
             <p>Title:{each.bookTitle}</p>
             <p>Author:{each.author}</p>
             <p>Rating:{each.rating}</p>
+
             {/* on deletion of book, pass it the attribute of the Firebase key */}
             <button value={booksKeys[i]} onClick={(e)=>{this.props.deleteBook(e)}}>Remove Book</button>
+
             <button value={booksKeys[i]} onClick={(e) => {this.props.markCompleted(e)}}>Mark as Completed</button>
+
           </div>
-        )
+        );
       })
     )
   } // FUNCTION ENDS
+
+  markCompleted = () => {
+    this.props.passedState.activeListObj.books.isCompleted = true;
+    // this.props.passedState.activeListObj[key].books.isCompleted = true;
+
+    // const completedFirebase = {
+    //   isCompleted: true
+    // };
+
+    // const targetList = this.state.activeListId;
+    // const dbRef = firebase.database().ref(`lists/${targetList}/books`);
+
+    // dbRef.push(completedFirebase);
+  }
 
   // Calculates the # of books read and renders percentage complete
   calculateProgress = () => {
