@@ -33,8 +33,9 @@ class App extends Component {
     const targetList = this.state.activeListId;
     const dbRef = firebase.database().ref(`lists/${targetList}/books`);
     // pushs the book object to the active list's Firebase node
-    dbRef.push(bookToAdd);
-    this.handleRefresh();
+    dbRef.push(bookToAdd).then(()=> {
+      this.handleRefresh();
+    })
   };
 
   // when called in Active.js, accepts the element data
@@ -53,8 +54,9 @@ class App extends Component {
       console.log("path to target", dbRef.path.pieces_);
 
       // remove target book from Firebase
-      dbRef.remove();
-      this.handleRefresh();
+      dbRef.remove()
+
+      this.handleRefresh()
     }
   };
 
@@ -71,23 +73,23 @@ class App extends Component {
 
     // checking/evaluating value of completion in firebase
     let checkCompletion;
-    dbRef.on("value", data => {
-      checkCompletion = data.val().isCompleted;
-    });
-
-    // conditional statement to "toggle" value of isCompleted state
+    dbRef.once("value").then(function(snapshot) {
+      checkCompletion = snapshot.val().isCompleted;
+    })
+      // conditional statement to "toggle" value of isCompleted state
     if (checkCompletion === false) {
       updateCompleted = {
         isCompleted: true
       };
+      dbRef.update(updateCompleted)
     } else {
       updateCompleted = {
         isCompleted: false
       };
     }
-
     // update firebase with completion status of current book
-    dbRef.update(updateCompleted);
+    dbRef.update(updateCompleted)
+    
     this.handleRefresh();
   };
 
@@ -114,7 +116,6 @@ class App extends Component {
       .once('value')
       .then((snapshot) => {
         const val = snapshot.val();
-        console.log(val);
         this.setState({
           activeListObj: {
             books: val
