@@ -7,7 +7,8 @@ class Active extends Component {
     super(props);
     this.state = {
       sortedBooks: [],
-      listRenameInput: false
+      listRenameInput: false,
+      activeListObj: null
     };
   }
 
@@ -78,7 +79,6 @@ class Active extends Component {
   calculateProgress = () => {
     // create a variable to manipulate th activeList's books
     const books = this.props.passedState.activeListObj.books;
-    console.log(books);
 
     // create variables to store total books and completed books
     let numBooks = 0;
@@ -180,7 +180,6 @@ class Active extends Component {
   }
 
   render() {
-
     return (
       <div className="active">
         {this.props.passedState.activeList !== null ? (
@@ -222,8 +221,15 @@ class Active extends Component {
         ) : null}
       </div>
     );
-
   }
+
+  componentDidMount() {
+    //this will cause the render method to run again
+    this.setState({
+      activeListObj: this.props.passedState.activeListObj
+    })
+  }
+
 }
 
 export default Active;

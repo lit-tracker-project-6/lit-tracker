@@ -17,22 +17,15 @@ class Lists extends Component{
     })
   }
 
-
   handleSubmit = (event) => {
     event.preventDefault();
     this.submitList();
   }
   
-  
-  submitList = () => { this.props.addList(this.state.newListName) }
+  submitList = () => { 
+    this.props.addList(this.state.newListName);
+   }
 
-  // The function that will access our lists in the database to do a thing
-  pullLists = () => {
-    const dbRef = firebase.database().ref("lists");
-    dbRef.on('value', (data) => {
-      console.log(data.val());
-    })
-  }
 
   render() {
     return(
