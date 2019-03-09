@@ -20,13 +20,13 @@ class App extends Component {
   }
 
   // on call, accepts book data from Search.js to adds a book to the active list
-  addBook = data => {
+  addBook = (data) => {
     // using the passed data, defines the book object
     const bookToAdd = {
       bookTitle: data.best_book.title,
       author: data.best_book.author.name,
       rating: data.average_rating,
-      image: data.bookCover,
+      image: data.best_book.image_url,
       isCompleted: false
     };
     // create a reference to the active list in Firebase

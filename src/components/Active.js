@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import './Active.css';
 
 
-
 class Active extends Component {
   constructor(props) {
     super(props);
@@ -46,6 +45,9 @@ class Active extends Component {
               <p>Title:{each.bookTitle}</p>
               <p>Author:{each.author}</p>
               <p>Rating:{each.rating}</p>
+              {
+                this.printBookCover(each)
+              }
               <button value={booksKeys[i]} onClick={(e) => { this.props.deleteBook(e) }}>Remove Book</button>
               <button value={booksKeys[i]} onClick={(e) => { this.props.markCompleted(e) }}>Mark as Completed</button>
             </div>
@@ -59,6 +61,9 @@ class Active extends Component {
               <p>Title:{each.bookTitle}</p>
               <p>Author:{each.author}</p>
               <p>Rating:{each.rating}</p>
+              {
+                this.printBookCover(each)
+              }
               {/* on deletion of book, pass it the attribute of the Firebase key */}
               <button value={booksKeys[i]} onClick={(e)=>{this.props.deleteBook(e)}}>Remove Book</button>
               <button value={booksKeys[i]} onClick={(e) => {this.props.markCompleted(e)}}>Mark as Completed</button>
@@ -138,8 +143,19 @@ class Active extends Component {
     })
   }
 
+  //this exists in search as well, we could pass it a as a prop but search doesnt need information from active and it takes wayyy too much code to pass this same function to App and then down to Active
+  //this function checks if a placeholder image should be rendered (book cover image does not exist) if it exists, print the book cover image otherwise use a placeholder image
+  printBookCover = (each) => {
+
+    if (each.image.length < 60) {
+      return <img src={each.image.substring(0, 45) + `l` + each.image.substring(46)} alt={`Book cover of ${each.bookTitle}`} />
+    } else {
+      return <img src='https://s.gr-assets.com/assets/nophoto/book/111x148-bcc042a9c91a29c1d680899eff700a03.png' alt={`Book cover of ${each.bookTitle}`} />
+    }
+  }
 
   render() {
+
     return (
       <div className='active'>
         { this.props.passedState.activeList !== null ?
@@ -160,13 +176,6 @@ class Active extends Component {
       </div>
     );
   }
-
 }
+
 export default Active;
-
-
-
-  //when sort by average ratings is selected:
-    //create a new array in the correct sorting order
-      //map over this new array
-   //when sort by release date selected, simply append without sorting   

@@ -89,10 +89,6 @@ class Search extends Component {
 
       }
     return searchedBooks; //when this function is called, it returns all the printed book results
-
-    //TODO: images are also weird, the length of the URL string is different when the image doesnt actually exist
-    //condiionally render the image, if the string length is longer than the a url string with an image dont add the l
-
   };
 
   render() {
@@ -124,17 +120,16 @@ class Search extends Component {
 const BookObject = (props) => {
 
   const data = props['data'];
-  let bookCover;
-
+  
   return (
     <div key={data.id["$t"]} className="bookOption" data-key={data.id["$t"]}>
       {
-        bookCover = printBookCover(data)
+        printBookCover(data)
       }
       <p>{data.best_book.title}</p>
       <p>{data.best_book.author.name}</p>
       <p>{data.average_rating}</p>
-      <button onClick={e => props.addBook(bookCover)}>Add Book</button>
+      <button onClick={e => props.addBook(data)}>Add Book</button>
     </div>
   )
 
@@ -146,6 +141,10 @@ const Loading = () => {
     <p>Loading</p>
   )
 }
+
+
+//checks if book cover image exists (based on string length), if it does use the image URL, else use a placeholder image
+//this has to be a simple component because it is being called in the book object component 
 
 const printBookCover = (data) => {
 
