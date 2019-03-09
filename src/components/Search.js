@@ -89,10 +89,6 @@ class Search extends Component {
 
       }
     return searchedBooks; //when this function is called, it returns all the printed book results
-
-    //TODO: images are also weird, the length of the URL string is different when the image doesnt actually exist
-    //condiionally render the image, if the string length is longer than the a url string with an image dont add the l
-
   };
 
   render() {
@@ -124,14 +120,11 @@ class Search extends Component {
 const BookObject = (props) => {
 
   const data = props['data'];
-
+  
   return (
     <div key={data.id["$t"]} className="bookOption" data-key={data.id["$t"]}>
       {
-        data.best_book.image_url.length < 60 ? 
-          <img src={data.best_book.image_url.substring(0, 45) + `l` + data.best_book.image_url.substring(46)} alt={`Book cover of ${data.best_book.title}`} /> 
-          :
-          <img src='https://s.gr-assets.com/assets/nophoto/book/111x148-bcc042a9c91a29c1d680899eff700a03.png' alt={`Book cover of ${data.best_book.title}`} />
+        printBookCover(data)
       }
       <p>{data.best_book.title}</p>
       <p>{data.best_book.author.name}</p>
@@ -147,6 +140,20 @@ const Loading = () => {
   return(
     <p>Loading</p>
   )
+}
+
+
+//checks if book cover image exists (based on string length), if it does use the image URL, else use a placeholder image
+//this has to be a simple component because it is being called in the book object component 
+
+const printBookCover = (data) => {
+
+  if (data.best_book.image_url.length < 60) {
+    return <img src={data.best_book.image_url.substring(0, 45) + `l` + data.best_book.image_url.substring(46)} alt={`Book cover of ${data.best_book.title}`} />
+  } else {
+    return <img src='https://s.gr-assets.com/assets/nophoto/book/111x148-bcc042a9c91a29c1d680899eff700a03.png' alt={`Book cover of ${data.best_book.title}`} />
+  }
+
 }
 
 export default Search;
