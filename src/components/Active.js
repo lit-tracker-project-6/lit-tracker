@@ -40,12 +40,14 @@ class Active extends Component {
 
       //if sort button is clicked and the array is filled, render from this array
       this.state.sortedBooks.length > 0 ?
-        this.state.sortedBooks.map(each => {
+        this.state.sortedBooks.map((each, i) => {
           return (
             <div className="book">
               <p>Title:{each.bookTitle}</p>
               <p>Author:{each.author}</p>
               <p>Rating:{each.rating}</p>
+              <button value={booksKeys[i]} onClick={(e) => { this.props.deleteBook(e) }}>Remove Book</button>
+              <button value={booksKeys[i]} onClick={(e) => { this.props.markCompleted(e) }}>Mark as Completed</button>
             </div>
           )
         }) :

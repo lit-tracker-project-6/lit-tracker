@@ -125,8 +125,6 @@ const BookObject = (props) => {
 
   const data = props['data'];
 
-  console.log('url length' + data.best_book.image_url.length);
-
   return (
     <div key={data.id["$t"]} className="bookOption" data-key={data.id["$t"]}>
       {
