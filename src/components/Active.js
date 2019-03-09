@@ -17,7 +17,7 @@ class Active extends Component {
     const books = this.props.passedState.activeListObj.books;
 
     // check if books is empty
-    if (books === undefined) {
+    if (typeof books !== "object") {
       // if yes, render empty
       return <p>This list is currently empty.</p>;
       // if no, render books
@@ -78,29 +78,31 @@ class Active extends Component {
   calculateProgress = () => {
     // create a variable to manipulate th activeList's books
     const books = this.props.passedState.activeListObj.books;
-    console.log(books);
+    
+    if (typeof books !== 'object') {
+      return <p>Reading List Progress: No books!</p>
+    } else {
+      // create variables to store total books and completed books
+      let numBooks = 0;
+      let completedBooks = 0;
 
-    // create variables to store total books and completed books
-    let numBooks = 0;
-    let completedBooks = 0;
-
-    // use Object.keys to return an array of book key values
-    Object.keys(books).forEach(key => {
-      // for each key we'll count how many there are
-      numBooks++;
-      // using the key in the books object, we can target a specific book's completion status
-      if (books[key].isCompleted === true) {
-        // count up if a book was completed (or read)
-        completedBooks++;
-      }
-    });
-    // calculate the percent of books read with the previous mentioned variables
-    const percentRead = (completedBooks / numBooks) * 100;
-    // return the percent read, rounded to the nearest integer
-
-    return <p>Reading List Progress: {Math.round(percentRead)}%</p>;
-  };
-  // calculateProgress function ends
+      // use Object.keys to return an array of book key values
+      Object.keys(books).forEach(key => {
+        // for each key we'll count how many there are
+        numBooks++;
+        // using the key in the books object, we can target a specific book's completion status
+        if (books[key].isCompleted === true) {
+          // count up if a book was completed (or read)
+          completedBooks++;
+        }
+      });
+      // calculate the percent of books read with the previous mentioned variables
+      const percentRead = (completedBooks / numBooks) * 100;
+      // return the percent read, rounded to the nearest integer
+    
+      return <p>Reading List Progress: {Math.round(percentRead)}%</p>;
+    }
+  } // calculateProgress function ends
 
   //this function is called onClick
   sortBooksByRating = () => {
