@@ -194,24 +194,13 @@ class Active extends Component {
               <button onClick={this.sortBooksByRating}>Sort by Average Reviews</button>
               <button onClick={this.sortBooksByDateAdded}>Sort by Date Added</button>
             </div>
+            {this.calculateProgress()}
+
           </div>
 
           <div className="activeListDisplay">
-            <h2>{this.props.passedState.activeList}</h2>
-            {this.calculateProgress()}
-            <button
-              onClick={() =>
-                this.props.deleteList(this.props.passedState.activeListId)
-              }
-            >
-              Remove this 📘
-            </button>
-            <button onClick={this.sortBooksByRating}>
-              Sort by Average Reviews
-            </button>
-            <button onClick={this.sortBooksByDateAdded}>
-              Sort by Date Added
-            </button>
+
+
 
             {/* FOR EDITING LIST NAME */}
             {this.state.listRenameInput === true ? (
@@ -227,7 +216,6 @@ class Active extends Component {
               {" "}
               Add Books to this list
             </p>
-            <p onClick={this.props.handleRefresh}> REFRESH</p>
 
 
             <div className="books">{this.renderBooks()}</div>
