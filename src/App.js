@@ -35,14 +35,26 @@ class App extends Component {
     dbRef.push(bookToAdd);
   };
 
-  deleteBook = (listId, bookId) => {
-    //bookId is a unique identifier used to find the book in the database
-    //when the bookObjects are being rendered in the activeList - pass the bookID to the button that listens for the event, the event listener will pass this method as a callback function
-    const dbRef = firebase.database().ref(`lists/${listId}/books/${bookId}`);
-    dbRef.remove();
-  };
-  // this.deleteBook('-L_KQzxwU_v97JMIGhRg', '-L_KTI_KL2G8dxuOSmRV') - this book is already deleted
+  // when called in Active.js, accepts the element data
+  deleteBook = (data) => {
+    
+    // *TEMPORARY* confirmation of book deletion
+    if (window.confirm("Are you sure you want to remove this book?")) {
 
+      // variables to store the target list id and target book id
+      const targetList = this.state.activeListId
+      const targetBook = data.target.value
+      // console.log('key of book to delete', targetBook)
+      
+      // create reference to the target book in the target list
+      const dbRef = firebase.database().ref(`lists/${targetList}/books/${targetBook}`);
+      console.log('path to target', dbRef.path.pieces_)
+
+      // remove target book from Firebase
+      dbRef.remove();
+    }
+  };
+  
   //This function will be called when a list in the Lists panel is clicked on, to set the state of the Active List to be that clicked list
   handleActiveList = list => {
     // make a reference to the list node location
@@ -124,6 +136,7 @@ class App extends Component {
             passedState={this.state}
             handleSearchModalOn={this.handleSearchModalOn}
             deleteList={this.deleteList}
+            deleteBook={this.deleteBook}
           />
           <Lists
             passedState={this.state}
