@@ -15,43 +15,87 @@ class App extends Component {
       activeListId: null,
       searchModal: false,
       lists: [],
-      activeListObj:{}
+      activeListObj: {}
     };
   }
 
   // on call, accepts book data from Search.js to adds a book to the active list
-  addBook = (data) => {
+  addBook = data => {
     // using the passed data, defines the book object
     const bookToAdd = {
       bookTitle: data.best_book.title,
       author: data.best_book.author.name,
       rating: data.average_rating,
       isCompleted: false
-    }
+    };
     // create a reference to the active list in Firebase
-    const targetList = this.state.activeListId
+    const targetList = this.state.activeListId;
     const dbRef = firebase.database().ref(`lists/${targetList}/books`);
     // pushs the book object to the active list's Firebase node
     dbRef.push(bookToAdd);
   };
 
-  deleteBook = (listId, bookId) => {
-    //bookId is a unique identifier used to find the book in the database
-    //when the bookObjects are being rendered in the activeList - pass the bookID to the button that listens for the event, the event listener will pass this method as a callback function
-    const dbRef = firebase.database().ref(`lists/${listId}/books/${bookId}`);
-    dbRef.remove();
+  // when called in Active.js, accepts the element data
+  deleteBook = data => {
+    // *TEMPORARY* confirmation of book deletion
+    if (window.confirm("Are you sure you want to remove this book?")) {
+      // variables to store the target list id and target book id
+      const targetList = this.state.activeListId;
+      const targetBook = data.target.value;
+      // console.log('key of book to delete', targetBook)
+
+      // create reference to the target book in the target list
+      const dbRef = firebase
+        .database()
+        .ref(`lists/${targetList}/books/${targetBook}`);
+      console.log("path to target", dbRef.path.pieces_);
+
+      // remove target book from Firebase
+      dbRef.remove();
+    }
   };
-  // this.deleteBook('-L_KQzxwU_v97JMIGhRg', '-L_KTI_KL2G8dxuOSmRV') - this book is already deleted
+
+  markCompleted = data => {
+    // variables to store the target list id and target book id
+    const targetList = this.state.activeListId;
+    const targetBook = data.target.value;
+  
+    // create reference to the target book in the target list
+    const dbRef = firebase
+      .database()
+      .ref(`lists/${targetList}/books/${targetBook}`);
+    let updateCompleted;
+
+    // checking/evaluating value of completion in firebase
+    let checkCompletion;
+    dbRef.on("value", data => {
+      checkCompletion = data.val().isCompleted;
+    });
+
+    // conditional statement to "toggle" value of isCompleted state
+    if (checkCompletion === false) {
+      updateCompleted = {
+        isCompleted: true
+      };
+    } else {
+      updateCompleted = {
+        isCompleted: false
+      };
+    }
+
+    // update firebase with completion status of current book
+    dbRef.update(updateCompleted);
+  };
 
   //This function will be called when a list in the Lists panel is clicked on, to set the state of the Active List to be that clicked list
   handleActiveList = list => {
     // make a reference to the list node location
-    const dbRef = firebase.database().ref(`lists/${list.key}`)
-    let listObj = {}
+    const dbRef = firebase.database().ref(`lists/${list.key}`);
+    let listObj = {};
     // take a snapshot of the data
     dbRef.on("value", function(snapshot) {
       listObj = snapshot.val();
-    })
+    });
     // console.log('list?',listObj)
     this.setState({
       activeList: list.listTitle,
@@ -59,6 +103,26 @@ class App extends Component {
       activeListObj: listObj
     });
   };
+
+  handleRefresh = () => {
+    const database = firebase.database();
+    database.ref(`lists/${this.state.activeListId}/books`)
+      .once('value')
+      .then((snapshot) => {
+        const val = snapshot.val();
+        console.log(val);
+        this.setState({
+          activeListObj: {
+            books: val
+          }
+        })
+      })
+  }
+
+  closeAndRefresh = () => {
+    this.handleRefresh();
+    this.handleSearchModalOff();
+  }
 
   handleSearchModalOn = () => {
     this.setState({
@@ -124,6 +188,9 @@ class App extends Component {
             passedState={this.state}
             handleSearchModalOn={this.handleSearchModalOn}
             deleteList={this.deleteList}
+            deleteBook={this.deleteBook}
+            handleRefresh={this.handleRefresh}
+            markCompleted={this.markCompleted}
           />
           <Lists
             passedState={this.state}
@@ -133,7 +200,11 @@ class App extends Component {
           />
         </div>
         {this.state.searchModal === true ? (
-          <Search handleSearchModalOff={this.handleSearchModalOff} addBook={this.addBook}/>
+          <Search 
+            passedState={this.state}
+            addBook={this.addBook}
+            closeAndRefresh={this.closeAndRefresh}
+          />
         ) : null}
         <Footer />
       </div>

@@ -99,7 +99,7 @@ class Search extends Component {
     return (
       <div className="search">
         <h2>This is the search modal</h2>
-        <p onClick={this.props.handleSearchModalOff}>close this modal</p>
+        <p onClick={this.props.closeAndRefresh}>CLOSE AND REFRESH</p>
 
         <h3>Search for a book!</h3>
         <form action="submit" onSubmit={this.getSearchResults}>
