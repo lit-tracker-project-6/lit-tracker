@@ -74,7 +74,8 @@ class Active extends Component {
   // Calculates the # of books read and renders percentage complete
   calculateProgress = () => {
     // create a variable to manipulate th activeList's books
-    const books = this.props.passedState.activeList.books
+    const books = this.props.passedState.activeListObj.books
+    console.log(books)
 
     // create variables to store total books and completed books
     let numBooks = 0
@@ -93,7 +94,10 @@ class Active extends Component {
     // calculate the percent of books read with the previous mentioned variables
     const percentRead = completedBooks/numBooks * 100
     // return the percent read, rounded to the nearest integer
-    return Math.round(percentRead)
+
+    return (
+      <p>Reading List Progress: {Math.round(percentRead)}%</p>
+    )
   } 
   // calculateProgress function ends
 
@@ -145,6 +149,7 @@ class Active extends Component {
         { this.props.passedState.activeList !== null ?
           <div className="activeListDisplay">
             <h2>{this.props.passedState.activeList}</h2>
+            {this.calculateProgress()}
             <button onClick={() => this.props.deleteList(this.props.passedState.activeListId)}>Remove this 📘</button>
             <button onClick={this.sortBooksByRating}>Sort by Average Reviews</button>
             <button onClick={this.sortBooksByDateAdded}>Sort by Date Added</button>
