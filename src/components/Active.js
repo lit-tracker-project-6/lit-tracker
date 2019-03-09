@@ -113,7 +113,6 @@ class Active extends Component {
 
   //onclick sort books by date added - we can get fancy and only show one button at a time
   sortBooksByDateAdded = () => {
-
     //setState triggering the render lifecycle method to run and renderBooks will not map sortedbooks
     this.setState({
       sortedBooks: []
