@@ -178,7 +178,14 @@ class App extends Component {
       .database()
       .ref(`lists`)
       .push(newList);
-  };
+  };  
+
+  //log the newly added list
+    //currently only new list name is being logged 
+    //then the entire object is pushed to firebase and a new firebase key associated with the book is generated
+    // find the object of the newly added list, set it to state
+  //fetch data from database, store it in state
+    //causing a render of all components
 
   //Deletes the list when the button it's attached to is clicked
   deleteList = bookId => {
