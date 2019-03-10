@@ -11,6 +11,12 @@ class Active extends Component {
     };
   }
 
+  //log the newly added list
+    //currently only new list name is being logged 
+    //then the entire object is pushed to firebase and a new firebase key associated with the book is generated
+  //fetch data from database, store it in state
+    //causing a re render of all components
+
   // when called, renders books in the active list window
   renderBooks = () => {
     // variable to store books object
