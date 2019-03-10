@@ -18,7 +18,7 @@ class Active extends Component {
     const books = this.props.passedState.activeListObj.books;
 
     // check if books is empty
-    if (typeof books !== "object") {
+    if (typeof books !== 'object' || books === null) {
       // if yes, render empty
       return <p>This list is currently empty.</p>;
       // if no, render books
@@ -34,43 +34,37 @@ class Active extends Component {
         // combine keys with books to push the individual books into the array
         booksToRender.push(books[key])
       })
-    return (
 
-      //if sort button is clicked and the array is filled, render from this array
-      this.state.sortedBooks.length > 0 ?
-        this.state.sortedBooks.map((each, i) => {
-          return (
-            <div className="book">
-              <p>Title:{each.bookTitle}</p>
-              <p>Author:{each.author}</p>
-              <p>Rating:{each.rating}</p>
-              {
-                this.printBookCover(each)
-              }
-              <button value={booksKeys[i]} onClick={(e) => { this.props.deleteBook(e) }}>Remove Book</button>
-              <button value={booksKeys[i]} onClick={(e) => { this.props.markCompleted(e) }}>Mark as Completed</button>
-            </div>
-          )
-        }) :
-      
-        // use map to render the books in the booksToRender array
-        booksToRender.map((each, i) => {
-          return (
-            <div key={i} className="book">
-              <p>Title:{each.bookTitle}</p>
-              <p>Author:{each.author}</p>
-              <p>Rating:{each.rating}</p>
-              {
-                this.printBookCover(each)
-              }
-              {/* on deletion of book, pass it the attribute of the Firebase key */}
-              <button value={booksKeys[i]} onClick={(e)=>{this.props.deleteBook(e)}}>Remove Book</button>
-              <button value={booksKeys[i]} onClick={(e) => {this.props.markCompleted(e)}}>Mark as Completed</button>
-            </div>
-                       
-          )
-        })
+      return (
+        //if sort button is clicked and the array is filled, render from this array
+        this.state.sortedBooks.length > 0 ?
+          this.state.sortedBooks.map((each, i) => {
+            return (
+              <div className="book">
+                <p>Title:{each.bookTitle}</p>
+                <p>Author:{each.author}</p>
+                <p>Rating:{each.rating}</p>
+                {this.printBookCover(each)}
+                <button value={booksKeys[i]} onClick={(e) => { this.props.deleteBook(e) }}>Remove Book</button>
+                <button value={booksKeys[i]} onClick={(e) => { this.props.markCompleted(e) }}>Mark as Completed</button>
+              </div>
+            )
+          }) :
         
+          // use map to render the books in the booksToRender array
+          booksToRender.map((each, i) => {
+            return (
+              <div key={i} className="book">
+                <p>Title:{each.bookTitle}</p>
+                <p>Author:{each.author}</p>
+                <p>Rating:{each.rating}</p>
+                {this.printBookCover(each)}
+                {/* on deletion of book, pass it the attribute of the Firebase key */}
+                <button value={booksKeys[i]} onClick={(e)=>{this.props.deleteBook(e)}}>Remove Book</button>
+                <button value={booksKeys[i]} onClick={(e) => {this.props.markCompleted(e)}}>Mark as Completed</button>
+              </div>             
+            )
+          })
       );
     } // else ends
   }; // FUNCTION ENDS
@@ -80,8 +74,8 @@ class Active extends Component {
     // create a variable to manipulate th activeList's books
     const books = this.props.passedState.activeListObj.books;
     
-    if (typeof books !== 'object') {
-      return <p>Reading List Progress: No books!</p>
+    if (typeof books !== 'object' || books === null) {
+      return (<p>Reading List Progress: No books!</p>)
     } else {
       // create variables to store total books and completed books
       let numBooks = 0;
@@ -187,7 +181,7 @@ class Active extends Component {
 
       <div className='active'>
           <div className="activeHeading clearfix">
-          <button className="close" title="close" onClick={this.props.closeActiveList}><i class="fas fa-times-circle"></i></button>
+          <button className="close" title="close" onClick={this.props.closeActiveList}><i className="fas fa-times-circle"></i></button>
             <h2>{this.props.passedState.activeList}</h2>
             <div className="activeHeadingButtons">
               <button onClick={this.props.handleSearchModalOn}> Add Books to this list</button>        

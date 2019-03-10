@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+ import React, { Component } from "react";
 import "./App.css";
 import firebase from "./firebase.js";
 import Header from "./components/Header.js";
@@ -52,7 +52,7 @@ class App extends Component {
       const dbRef = firebase
         .database()
         .ref(`lists/${targetList}/books/${targetBook}`);
-      console.log("path to target", dbRef.path.pieces_);
+      // console.log("path to target", dbRef.path.pieces_);
 
       // remove target book from Firebase
       dbRef.remove()
@@ -74,11 +74,11 @@ class App extends Component {
 
     // checking/evaluating value of completion in firebase
     let checkCompletion;
-    dbRef.once("value").then(function(snapshot) {
-      checkCompletion = snapshot.val().isCompleted;
+    dbRef.on("value", function(snapshot) {
+        checkCompletion = snapshot.val();
     })
       // conditional statement to "toggle" value of isCompleted state
-    if (checkCompletion === false) {
+    if (checkCompletion.isCompleted === false) {
       updateCompleted = {
         isCompleted: true
       };
