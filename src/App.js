@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+ import React, { Component } from "react";
 import "./App.css";
 import firebase from "./firebase.js";
 import Header from "./components/Header.js";
@@ -75,14 +75,10 @@ class App extends Component {
     // checking/evaluating value of completion in firebase
     let checkCompletion;
     dbRef.on("value", function(snapshot) {
-      if (snapshot.val() !== 'object' || snapshot.val() === null) {
-        console.log('do nothing dammit')
-      } else {
-        checkCompletion = snapshot.val().isCompleted;
-      }
+        checkCompletion = snapshot.val();
     })
       // conditional statement to "toggle" value of isCompleted state
-    if (checkCompletion === false) {
+    if (checkCompletion.isCompleted === false) {
       updateCompleted = {
         isCompleted: true
       };

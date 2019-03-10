@@ -34,43 +34,37 @@ class Active extends Component {
         // combine keys with books to push the individual books into the array
         booksToRender.push(books[key])
       })
-    return (
 
-      //if sort button is clicked and the array is filled, render from this array
-      this.state.sortedBooks.length > 0 ?
-        this.state.sortedBooks.map((each, i) => {
-          return (
-            <div className="book">
-              <p>Title:{each.bookTitle}</p>
-              <p>Author:{each.author}</p>
-              <p>Rating:{each.rating}</p>
-              {
-                this.printBookCover(each)
-              }
-              <button value={booksKeys[i]} onClick={(e) => { this.props.deleteBook(e) }}>Remove Book</button>
-              <button value={booksKeys[i]} onClick={(e) => { this.props.markCompleted(e) }}>Mark as Completed</button>
-            </div>
-          )
-        }) :
-      
-        // use map to render the books in the booksToRender array
-        booksToRender.map((each, i) => {
-          return (
-            <div key={i} className="book">
-              <p>Title:{each.bookTitle}</p>
-              <p>Author:{each.author}</p>
-              <p>Rating:{each.rating}</p>
-              {
-                this.printBookCover(each)
-              }
-              {/* on deletion of book, pass it the attribute of the Firebase key */}
-              <button value={booksKeys[i]} onClick={(e)=>{this.props.deleteBook(e)}}>Remove Book</button>
-              <button value={booksKeys[i]} onClick={(e) => {this.props.markCompleted(e)}}>Mark as Completed</button>
-            </div>
-                       
-          )
-        })
+      return (
+        //if sort button is clicked and the array is filled, render from this array
+        this.state.sortedBooks.length > 0 ?
+          this.state.sortedBooks.map((each, i) => {
+            return (
+              <div className="book">
+                <p>Title:{each.bookTitle}</p>
+                <p>Author:{each.author}</p>
+                <p>Rating:{each.rating}</p>
+                {this.printBookCover(each)}
+                <button value={booksKeys[i]} onClick={(e) => { this.props.deleteBook(e) }}>Remove Book</button>
+                <button value={booksKeys[i]} onClick={(e) => { this.props.markCompleted(e) }}>Mark as Completed</button>
+              </div>
+            )
+          }) :
         
+          // use map to render the books in the booksToRender array
+          booksToRender.map((each, i) => {
+            return (
+              <div key={i} className="book">
+                <p>Title:{each.bookTitle}</p>
+                <p>Author:{each.author}</p>
+                <p>Rating:{each.rating}</p>
+                {this.printBookCover(each)}
+                {/* on deletion of book, pass it the attribute of the Firebase key */}
+                <button value={booksKeys[i]} onClick={(e)=>{this.props.deleteBook(e)}}>Remove Book</button>
+                <button value={booksKeys[i]} onClick={(e) => {this.props.markCompleted(e)}}>Mark as Completed</button>
+              </div>             
+            )
+          })
       );
     } // else ends
   }; // FUNCTION ENDS
