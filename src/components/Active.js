@@ -17,7 +17,7 @@ class Active extends Component {
     const books = this.props.passedState.activeListObj.books;
 
     // check if books is empty
-    if (typeof books !== "object") {
+    if (typeof books !== 'object' || books === null) {
       // if yes, render empty
       return <p>This list is currently empty.</p>;
       // if no, render books
@@ -79,8 +79,8 @@ class Active extends Component {
     // create a variable to manipulate th activeList's books
     const books = this.props.passedState.activeListObj.books;
     
-    if (typeof books !== 'object') {
-      return <p>Reading List Progress: No books!</p>
+    if (typeof books !== 'object' || books === null) {
+      return (<p>Reading List Progress: No books!</p>)
     } else {
       // create variables to store total books and completed books
       let numBooks = 0;
@@ -187,7 +187,7 @@ class Active extends Component {
 
       <div className='active'>
           <div className="activeHeading clearfix">
-          <button className="close" title="close" onClick={this.props.closeActiveList}><i class="fas fa-times-circle"></i></button>
+          <button className="close" title="close" onClick={this.props.closeActiveList}><i className="fas fa-times-circle"></i></button>
             <h2>{this.props.passedState.activeList}</h2>
             <div className="activeHeadingButtons">
               <button onClick={this.props.handleSearchModalOn}> Add Books to this list</button>        

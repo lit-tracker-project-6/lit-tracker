@@ -67,9 +67,9 @@ class Search extends Component {
       if( Array.isArray(this.state.searchResults) ){
         
         //if results is an array - more than one result. map through the results and return
-        searchedBooks = this.state.searchResults.map(data => {
+        searchedBooks = this.state.searchResults.map((data,i) => {
           return (
-            !isNaN(data.average_rating) && <BookObject data={data} addBook={this.props.addBook} />
+            !isNaN(data.average_rating) && <BookObject key={i} data={data} addBook={this.props.addBook} />
           )
           //book object is the book being printed, pass it props and create this book object for every result in the array
         })

@@ -52,7 +52,7 @@ class App extends Component {
       const dbRef = firebase
         .database()
         .ref(`lists/${targetList}/books/${targetBook}`);
-      console.log("path to target", dbRef.path.pieces_);
+      // console.log("path to target", dbRef.path.pieces_);
 
       // remove target book from Firebase
       dbRef.remove()
@@ -74,8 +74,12 @@ class App extends Component {
 
     // checking/evaluating value of completion in firebase
     let checkCompletion;
-    dbRef.once("value").then(function(snapshot) {
-      checkCompletion = snapshot.val().isCompleted;
+    dbRef.on("value", function(snapshot) {
+      if (snapshot.val() !== 'object' || snapshot.val() === null) {
+        console.log('do nothing dammit')
+      } else {
+        checkCompletion = snapshot.val().isCompleted;
+      }
     })
       // conditional statement to "toggle" value of isCompleted state
     if (checkCompletion === false) {
