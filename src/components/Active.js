@@ -7,7 +7,8 @@ class Active extends Component {
     super(props);
     this.state = {
       sortedBooks: [],
-      listRenameInput: false
+      listRenameInput: false,
+      activeListObj: null
     };
   }
 
@@ -188,7 +189,6 @@ class Active extends Component {
   }
 
   render() {
-
     return (
 
       <div className='active'>
@@ -228,8 +228,15 @@ class Active extends Component {
           </div>
       </div>
     );
-
   }
+
+  componentDidMount() {
+    //this will cause the render method to run again
+    this.setState({
+      activeListObj: this.props.passedState.activeListObj
+    })
+  }
+
 }
 
 export default Active;
