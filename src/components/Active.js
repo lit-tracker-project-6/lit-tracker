@@ -15,6 +15,7 @@ class Active extends Component {
   //log the newly added list
     //currently only new list name is being logged 
     //then the entire object is pushed to firebase and a new firebase key associated with the book is generated
+      //call listener after a new list is added, find the new key (last item added to firebase)
     // find the object of the newly added list, set it to state
   //fetch data from database, store it in state
     //causing a re render of all components
@@ -57,11 +58,9 @@ class Active extends Component {
               <button value={booksKeys[i]} onClick={(e)=>{this.props.deleteBook(e)}}>Remove Book</button>
               <button value={booksKeys[i]} onClick={(e) => {this.props.markCompleted(e)}}>Mark as Completed</button>
             </div>
-                       
           )
         })
         
-      );
     } // else ends
   }; // FUNCTION ENDS
 
