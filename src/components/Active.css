@@ -79,11 +79,34 @@
     color: #256bed;
 }
 
+.books {
+    clear: both;
+}
+
 .book {
     float:left;
-    width: 50%;
-    /* border: 2px solid #deedf5; */
+    width: 49%;
     border-radius: 5px;
+    height: 300px;
+}
+
+.book button {
+    display: block;
+}
+
+.book button i {
+    transition: all 0.3s;
+}
+
+.book button:hover i {
+    color: #256bed;
+}
+
+.book button.checked i {
+    color: #256bed;
+}
+.book button.checked:hover i {
+    color: #1e1d29;
 }
 
 .bookCover {
@@ -92,8 +115,19 @@
     border-radius: 10px;
 }
 
+
 .bookInfo {
-    width: 60%;
+    width: calc(60% - 30px);
+    margin: 0 20px 0 10px;
     float: left;
+    /* border: 1px solid green; */
+}
+
+.progressCheck > * {
+    float: left;
+}
+
+.checkButton {
+    margin: 20px 0 0 10px;;
 }
 

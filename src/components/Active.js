@@ -54,8 +54,12 @@ class Active extends Component {
                   <p>Title: {each.bookTitle}</p>
                   <p>Author: {each.author}</p>
                   <p>Rating: {each.rating}</p>
-                  <button key={`delete`+`${i}`} value={each.bookKey} onClick={(e) => { this.props.deleteBook(e) }}>Remove Book</button>
-                  <button key={`complete`+`${i}`} value={each.bookKey} onClick={(e) => { this.props.markCompleted(e) }}>Mark as Completed</button>
+                  <div className="progressCheck clearfix">
+                    <p>Read:</p>
+                    <button key={`complete` + `${i}`} value={each.bookKey} onClick={(e) => { this.props.markCompleted(e) }}><i className="fas fa-check"></i></button>
+                  </div>
+                  
+                  <button title="remove from list" key={`delete` + `${i}`} value={each.bookKey} onClick={(e) => { this.props.deleteBook(e) }}><i className="fas fa-trash"></i></button>
                 </div>
 
               </div>
@@ -71,11 +75,13 @@ class Active extends Component {
                   <p>Title: {each.bookTitle}</p>
                   <p>Author: {each.author}</p>
                   <p>Rating: {each.rating}</p>
-                  {/* on deletion of book, pass it the attribute of the Firebase key */}
-                  <button key={`delete`+`${i}`} value={booksKeys[i]} onClick={(e)=>{this.props.deleteBook(e)}}>Remove Book</button>
-                  <button key={`complete`+`${i}`} value={booksKeys[i]} onClick={(e) => {this.props.markCompleted(e)}}>Mark as Completed</button>
+                  <div className="progressCheck clearfix">
+                    <p>Read:</p>
+                    {/* THIS IS THE BUTTON TO ADD "checked" CLASS TO */}
+                    <button className="checkButton" key={`complete` + `${i}`} value={booksKeys[i]} onClick={(e) => { this.props.markCompleted(e) }}><i className="fas fa-check"></i></button>
+                  </div>
+                  <button title="remove from list" key={`delete` + `${i}`} value={booksKeys[i]} onClick={(e) => { this.props.deleteBook(e) }}><i className="fas fa-trash"></i></button>
                 </div>
-
               </div>             
             )
           })
@@ -191,7 +197,7 @@ class Active extends Component {
     if (each.image.length < 60) {
       return <img className="bookCover" src={each.image.substring(0, 45) + `l` + each.image.substring(46)} alt={`Book cover of ${each.bookTitle}`} />
     } else {
-      return <img src='https://s.gr-assets.com/assets/nophoto/book/111x148-bcc042a9c91a29c1d680899eff700a03.png' alt={`Book cover of ${each.bookTitle}`} />
+      return <img className="bookCover" src='https://s.gr-assets.com/assets/nophoto/book/111x148-bcc042a9c91a29c1d680899eff700a03.png' alt={`Book cover of ${each.bookTitle}`} />
     }
   }
 
@@ -200,9 +206,9 @@ class Active extends Component {
 
       <div className='active'>
           <div className="activeHeading clearfix">
-          <button className="close" title="close" onClick={this.props.closeActiveList}><i class="fas fa-times"></i></button>
+          <button className="close" title="close list" onClick={this.props.closeActiveList}><i class="fas fa-times"></i></button>
             <h2>{this.props.passedState.activeList}</h2>
-            <div className="activeHeadingButtons">
+            <div className="activeHeadingButtons clearfix">
               <button title="Add books" className="addBooks" onClick={this.props.handleSearchModalOn}><i className="fas fa-book-medical"></i></button>        
               {this.calculateProgress()}
               <div className="sorting">
@@ -228,13 +234,7 @@ class Active extends Component {
               <button onClick={this.listRenameInputOn}>Edit List Name</button>
             )} */}
 
-            <p onClick={this.props.handleSearchModalOn}>
-              {" "}
-              Add Books to this list
-            </p> */}
-
-
-            <div className="books">{this.renderBooks()}</div>
+            <div className="books clearfix">{this.renderBooks()}</div>
           </div>
       </div>
     );

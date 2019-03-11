@@ -25,6 +25,8 @@
     border-left: 2px solid #256bed;
     border-radius: 0 0 0 5px;
     padding: 0 0 2px 10px;
+    width: 80%;
+    max-width: 300px;
 }
 
 .list {
