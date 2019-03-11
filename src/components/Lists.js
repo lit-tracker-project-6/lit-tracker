@@ -17,9 +17,11 @@ class Lists extends Component{
     })
   }
 
+  // Submit form to create new list name and clear input upon submit
   handleSubmit = (event) => {
     event.preventDefault();
     this.submitList();
+    this.myFormRef.reset();
   }
   
   submitList = () => { 
@@ -32,9 +34,9 @@ class Lists extends Component{
       <div className='lists'>
         <h2>Reading Lists</h2>
         <div className="addList">
-          <form action="submit" onSubmit={this.handleSubmit}>
+          <form action="submit" onSubmit={this.handleSubmit} ref={(el) => this.myFormRef = el}>
             <input type="text" onChange={this.handleChange} placeholder="Create new list" required/>
-            <button type="submit"><i class="fas fa-plus"></i></button>
+            <button type="submit"><i className="fas fa-plus"></i></button>
           </form>
         </div>
         <div className="showLists">
