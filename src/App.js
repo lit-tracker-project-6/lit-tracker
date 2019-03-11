@@ -98,6 +98,7 @@ class App extends Component {
   handleActiveList = list => {
     // make a reference to the list node location
     const dbRef = firebase.database().ref(`lists/${list.key}`);
+    //the key is tied to the button when it is rendered
     let listObj = {};
     // take a snapshot of the data
     dbRef.on("value", function(snapshot) {
@@ -123,19 +124,19 @@ class App extends Component {
           }
         })
       })
-  }
+  };
 
   closeActiveList = () => {
     this.setState({
       activeList: null,
       activeListId: null
     })
-  }
+  };
 
   closeAndRefresh = () => {
     this.handleRefresh();
     this.handleSearchModalOff();
-  }
+  };
 
   handleSearchModalOn = () => {
     this.setState({
@@ -149,23 +150,42 @@ class App extends Component {
     });
   };
 
-  // Grabs objects from within firebase convert them into an array and put that array in this.state.lists
-  componentDidMount() {
+  getListData = () => {
     const dbRef = firebase.database().ref("lists");
+    
     dbRef.on("value", response => {
       const newState = [];
       const data = response.val();
+      
       for (let list in data) {
         newState.push({
           key: list,
           listTitle: data[list].listTitle
-        });
-        // console.log(newState);
-      }
+        })
+      };
+      
       this.setState({
         lists: newState
       });
     });
+  }
+
+  setNewListToActive = () => {
+    const dbRef = firebase.database().ref("lists");
+    let newChild;
+    //below code sourecd from: https://stackoverflow.com/questions/46447951/child-added-get-last-item-added-javascript
+    //reason the event listener is writen last is because the event listener expects a callback so you cannot chain. you must chain the methods before hand - t he query is fired when a new child is added to the database
+    dbRef.orderByKey().limitToLast(1).on('child_added', function (snapshot) {
+      //without the orderByKey and limitToLast this function will return ALL the lists
+      //orderByKey and limitToLast are query methods - results are filtered according to the functions defined within these methods. See below
+        //orderByKey method orders by the last added item (works well with push, as we are pushing new lists) 
+        //limitToLast method limit results from the end of the ordered list results. The value passed is 1, the method is returning one item from the bottom of the list (the latest added item) 
+      newChild = snapshot.val();
+    });
+    this.setState({
+      activeListObj: newChild,
+      activeList: newChild.listTitle
+    })
   }
 
   addList = bookList => {
@@ -177,15 +197,9 @@ class App extends Component {
     firebase
       .database()
       .ref(`lists`)
-      .push(newList);
+      .push(newList)
+      this.setNewListToActive();
   };  
-
-  //log the newly added list
-    //currently only new list name is being logged 
-    //then the entire object is pushed to firebase and a new firebase key associated with the book is generated
-    // find the object of the newly added list, set it to state
-  //fetch data from database, store it in state
-    //causing a render of all components
 
   //Deletes the list when the button it's attached to is clicked
   deleteList = bookId => {
@@ -255,6 +269,10 @@ class App extends Component {
       </div>
     );
   }
+
+  componentDidMount() {
+    this.getListData();
+  } 
 }
 
 export default App;

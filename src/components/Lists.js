@@ -42,9 +42,9 @@ class Lists extends Component{
               this.props.passedState.lists.map(data => {
                 return(
                   <div className="list clearfix" key={data.key}>
-                    <i class="fas fa-bookmark"></i>
+                    <i className="fas fa-bookmark"></i>
                     <p onClick={() => {this.props.handleActiveList(data)}}>{data.listTitle}</p>
-                    <button className="hidden" onClick={() => this.props.deleteList(data.key)}><i class="fas fa-trash"></i></button>
+                    <button className="hidden" onClick={() => this.props.deleteList(data.key)}><i className="fas fa-trash"></i></button>
                   </div>
                 )
               })

@@ -12,21 +12,13 @@ class Active extends Component {
     };
   }
 
-  //log the newly added list
-    //currently only new list name is being logged 
-    //then the entire object is pushed to firebase and a new firebase key associated with the book is generated
-      //call listener after a new list is added, find the new key (last item added to firebase)
-    // find the object of the newly added list, set it to state
-  //fetch data from database, store it in state
-    //causing a re render of all components
-
   // when called, renders books in the active list window
   renderBooks = () => {
     // variable to store books object
     const books = this.props.passedState.activeListObj.books;
 
     // check if books is empty
-    if (typeof books !== "object") {
+    if (typeof books !== 'object' || books === null) {
       // if yes, render empty
       return <p>This list is currently empty.</p>;
       // if no, render books
@@ -38,31 +30,44 @@ class Active extends Component {
       // .forEach then applies a function to each of those keys
       const booksKeys = Object.keys(books);
 
-      // booksKeys.forEach(key => {
-      //   // combine keys with books to push the individual books into the array
-      //   booksToRender.push(books[key])
-   
-      //   }) :
-      
-        // use map to render the books in the booksToRender array
-        booksToRender.map((each, i) => {
-          return (
-            <div key={i} className="book">
-              <p>Title:{each.bookTitle}</p>
-              <p>Author:{each.author}</p>
-              <p>Rating:{each.rating}</p>
-              {
-                this.printBookCover(each)
-              }
-              {/* on deletion of book, pass it the attribute of the Firebase key */}
-              <button value={booksKeys[i]} onClick={(e)=>{this.props.deleteBook(e)}}>Remove Book</button>
-              <button value={booksKeys[i]} onClick={(e) => {this.props.markCompleted(e)}}>Mark as Completed</button>
-            </div>
-          )
-        })
-        
+      booksKeys.forEach(key => {
+        // combine keys with books to push the individual books into the array
+        booksToRender.push(books[key])
+      })
+
+      return (
+        //if sort button is clicked and the array is filled, render from this array
+        this.state.sortedBooks.length > 0 ?
+          this.state.sortedBooks.map((each, i) => {
+            return (
+              <div className="book">
+                <p>Title:{each.bookTitle}</p>
+                <p>Author:{each.author}</p>
+                <p>Rating:{each.rating}</p>
+                {this.printBookCover(each)}
+                <button value={booksKeys[i]} onClick={(e) => { this.props.deleteBook(e) }}>Remove Book</button>
+                <button value={booksKeys[i]} onClick={(e) => { this.props.markCompleted(e) }}>Mark as Completed</button>
+              </div>
+            )
+          }) :
+
+          // use map to render the books in the booksToRender array
+          booksToRender.map((each, i) => {
+            return (
+              <div key={i} className="book">
+                <p>Title:{each.bookTitle}</p>
+                <p>Author:{each.author}</p>
+                <p>Rating:{each.rating}</p>
+                {this.printBookCover(each)}
+                {/* on deletion of book, pass it the attribute of the Firebase key */}
+                <button value={booksKeys[i]} onClick={(e) => { this.props.deleteBook(e) }}>Remove Book</button>
+                <button value={booksKeys[i]} onClick={(e) => { this.props.markCompleted(e) }}>Mark as Completed</button>
+              </div>
+            )
+          })
+      );
     } // else ends
-  }; // FUNCTION ENDS
+  };
 
   // Calculates the # of books read and renders percentage complete
   calculateProgress = () => {
