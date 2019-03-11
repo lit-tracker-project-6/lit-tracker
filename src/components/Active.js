@@ -41,12 +41,14 @@ class Active extends Component {
           this.state.sortedBooks.map((each, i) => {
             return (
               <div className="book">
-                <p>Title:{each.bookTitle}</p>
-                <p>Author:{each.author}</p>
-                <p>Rating:{each.rating}</p>
                 {this.printBookCover(each)}
-                <button value={booksKeys[i]} onClick={(e) => { this.props.deleteBook(e) }}>Remove Book</button>
-                <button value={booksKeys[i]} onClick={(e) => { this.props.markCompleted(e) }}>Mark as Completed</button>
+                <div className="bookInfo">
+                  <p>Title: {each.bookTitle}</p>
+                  <p>Author: {each.author}</p>
+                  <p>Rating: {each.rating}</p>
+                  <button value={booksKeys[i]} onClick={(e) => { this.props.deleteBook(e) }}>Remove Book</button>
+                  <button value={booksKeys[i]} onClick={(e) => { this.props.markCompleted(e) }}>Mark as Completed</button>
+                </div>
               </div>
             )
           }) :
@@ -55,13 +57,15 @@ class Active extends Component {
           booksToRender.map((each, i) => {
             return (
               <div key={i} className="book">
-                <p>Title:{each.bookTitle}</p>
-                <p>Author:{each.author}</p>
-                <p>Rating:{each.rating}</p>
                 {this.printBookCover(each)}
-                {/* on deletion of book, pass it the attribute of the Firebase key */}
-                <button value={booksKeys[i]} onClick={(e)=>{this.props.deleteBook(e)}}>Remove Book</button>
-                <button value={booksKeys[i]} onClick={(e) => {this.props.markCompleted(e)}}>Mark as Completed</button>
+                <div className="bookInfo">
+                  <p>Title: {each.bookTitle}</p>
+                  <p>Author: {each.author}</p>
+                  <p>Rating: {each.rating}</p>
+                  {/* on deletion of book, pass it the attribute of the Firebase key */}
+                  <button value={booksKeys[i]} onClick={(e)=>{this.props.deleteBook(e)}}>Remove Book</button>
+                  <button value={booksKeys[i]} onClick={(e) => {this.props.markCompleted(e)}}>Mark as Completed</button>
+                </div>
               </div>             
             )
           })
@@ -75,7 +79,7 @@ class Active extends Component {
     const books = this.props.passedState.activeListObj.books;
     
     if (typeof books !== 'object' || books === null) {
-      return (<p>Reading List Progress: No books!</p>)
+      return (<p className="progress">No Books</p>)
     } else {
       // create variables to store total books and completed books
       let numBooks = 0;
@@ -95,7 +99,7 @@ class Active extends Component {
       const percentRead = (completedBooks / numBooks) * 100;
       // return the percent read, rounded to the nearest integer
     
-      return <p>Reading List Progress: {Math.round(percentRead)}%</p>;
+      return <p className="progress">{Math.round(percentRead)}% read</p>;
     }
   } // calculateProgress function ends
 
@@ -170,7 +174,7 @@ class Active extends Component {
   printBookCover = (each) => {
 
     if (each.image.length < 60) {
-      return <img src={each.image.substring(0, 45) + `l` + each.image.substring(46)} alt={`Book cover of ${each.bookTitle}`} />
+      return <img className="bookCover" src={each.image.substring(0, 45) + `l` + each.image.substring(46)} alt={`Book cover of ${each.bookTitle}`} />
     } else {
       return <img src='https://s.gr-assets.com/assets/nophoto/book/111x148-bcc042a9c91a29c1d680899eff700a03.png' alt={`Book cover of ${each.bookTitle}`} />
     }
@@ -181,14 +185,17 @@ class Active extends Component {
 
       <div className='active'>
           <div className="activeHeading clearfix">
-          <button className="close" title="close" onClick={this.props.closeActiveList}><i className="fas fa-times-circle"></i></button>
+          <button className="close" title="close" onClick={this.props.closeActiveList}><i class="fas fa-times"></i></button>
             <h2>{this.props.passedState.activeList}</h2>
             <div className="activeHeadingButtons">
-              <button onClick={this.props.handleSearchModalOn}> Add Books to this list</button>        
-              <button onClick={this.sortBooksByRating}>Sort by Average Reviews</button>
-              <button onClick={this.sortBooksByDateAdded}>Sort by Date Added</button>
+              <button title="Add books" className="addBooks" onClick={this.props.handleSearchModalOn}><i className="fas fa-book-medical"></i></button>        
+              {this.calculateProgress()}
+              <div className="sorting">
+                <p>Sort by: </p>
+                <button className="rating" title="rating" onClick={this.sortBooksByRating}><i className="fas fa-star"></i></button>
+                <button className="date" title="date added" onClick={this.sortBooksByDateAdded}><i className="fas fa-calendar-day"></i></button>
+              </div>
             </div>
-            {this.calculateProgress()}
 
           </div>
 
@@ -197,7 +204,7 @@ class Active extends Component {
 
 
             {/* FOR EDITING LIST NAME */}
-            {this.state.listRenameInput === true ? (
+            {/* {this.state.listRenameInput === true ? (
               <form action="submit" onSubmit={this.handleSubmit}>
                 <input type="text" onChange={this.handleChange} required />
                 <input type="submit" />
@@ -209,7 +216,7 @@ class Active extends Component {
             <p onClick={this.props.handleSearchModalOn}>
               {" "}
               Add Books to this list
-            </p>
+            </p> */}
 
 
             <div className="books">{this.renderBooks()}</div>
