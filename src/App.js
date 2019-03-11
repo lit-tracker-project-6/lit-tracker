@@ -174,6 +174,7 @@ class App extends Component {
   }
 
   setNewListToActive = () => {
+    this.handleSearchModalOff()
     const dbRef = firebase.database().ref("lists");
     let newChild;
     //below code sourecd from: https://stackoverflow.com/questions/46447951/child-added-get-last-item-added-javascript
