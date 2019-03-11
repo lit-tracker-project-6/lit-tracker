@@ -56,10 +56,11 @@ class Active extends Component {
                   <p>Rating: {each.rating}</p>
                   <div className="progressCheck clearfix">
                     <p>Read:</p>
-                    <button key={`complete` + `${i}`} value={each.bookKey} onClick={(e) => { this.props.markCompleted(e) }}><i className="fas fa-check"></i></button>
+                    <button key={`complete${i}`} value={each.bookKey} onClick={(e) => { this.props.markCompleted(e) }}><i className="fas fa-check"></i></button>
                   </div>
                   
-                  <button title="remove from list" key={`delete` + `${i}`} value={each.bookKey} onClick={(e) => { this.props.deleteBook(e) }}><i className="fas fa-trash"></i></button>
+                  <button title="remove from list" key={`delete${i}`} value={each.bookKey} onClick={(e) => { this.props.deleteBook(e) }}><i className="fas fa-trash"></i></button>
+
                 </div>
 
               </div>
@@ -78,16 +79,17 @@ class Active extends Component {
                   <div className="progressCheck clearfix">
                     <p>Read:</p>
                     {/* THIS IS THE BUTTON TO ADD "checked" CLASS TO */}
-                    <button className="checkButton" key={`complete` + `${i}`} value={booksKeys[i]} onClick={(e) => { this.props.markCompleted(e) }}><i className="fas fa-check"></i></button>
+                    <button className="checkButton" key={`complete${i}`} value={booksKeys[i]} onClick={(e) => { this.props.markCompleted(e) }}><i className="fas fa-check"></i></button>
                   </div>
-                  <button title="remove from list" key={`delete` + `${i}`} value={booksKeys[i]} onClick={(e) => { this.props.deleteBook(e) }}><i className="fas fa-trash"></i></button>
+                  <button title="remove from list" key={`delete${i}`} value={booksKeys[i]} onClick={(e) => { this.props.deleteBook(e) }}><i className="fas fa-trash"></i></button>
+
                 </div>
               </div>             
             )
           })
       );
     } // else ends
-  }; // FUNCTION ENDS
+  };
 
   // Calculates the # of books read and renders percentage complete
   calculateProgress = () => {
@@ -149,7 +151,6 @@ class Active extends Component {
     });
 
     //setState triggering the render lifecycle. renderBooks has a check for sortedResults
-    console.log(sortedBookList)
     this.setState({
       sortedBooks: sortedBookList
     });
@@ -206,7 +207,7 @@ class Active extends Component {
 
       <div className='active'>
           <div className="activeHeading clearfix">
-          <button className="close" title="close list" onClick={this.props.closeActiveList}><i class="fas fa-times"></i></button>
+          <button className="close" title="close" onClick={this.props.closeActiveList}><i className="fas fa-times"></i></button>
             <h2>{this.props.passedState.activeList}</h2>
             <div className="activeHeadingButtons clearfix">
               <button title="Add books" className="addBooks" onClick={this.props.handleSearchModalOn}><i className="fas fa-book-medical"></i></button>        
@@ -222,8 +223,6 @@ class Active extends Component {
 
           <div className="activeListDisplay">
 
-
-
             {/* FOR EDITING LIST NAME */}
             {/* {this.state.listRenameInput === true ? (
               <form action="submit" onSubmit={this.handleSubmit}>
@@ -235,6 +234,7 @@ class Active extends Component {
             )} */}
 
             <div className="books clearfix">{this.renderBooks()}</div>
+
           </div>
       </div>
     );

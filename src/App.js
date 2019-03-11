@@ -42,24 +42,31 @@ class App extends Component {
 
   // when called in Active.js, accepts the element data
   deleteBook = data => {
-    // *TEMPORARY* confirmation of book deletion
-    if (window.confirm("Are you sure you want to remove this book?")) {
-      // variables to store the target list id and target book id
-      const targetList = this.state.activeListId;
-      const targetBook = data.target.value;
-      // console.log('key of book to delete', targetBook)
+    // variables to store the target list id and target book id
+    const targetList = this.state.activeListId;
+    const targetBook = data.target.value;
+    //prompt for sweetalert popup
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      type: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!"
+    }).then(result => {
+      if (result.value) {
+        // create reference to the target book in the target list
+        const dbRef = firebase
+          .database()
+          .ref(`lists/${targetList}/books/${targetBook}`);
 
-      // create reference to the target book in the target list
-      const dbRef = firebase
-        .database()
-        .ref(`lists/${targetList}/books/${targetBook}`);
-      // console.log("path to target", dbRef.path.pieces_);
+        // remove target book from Firebase
+        dbRef.remove();
 
-      // remove target book from Firebase
-      dbRef.remove();
-
-      this.handleRefresh();
-    }
+        this.handleRefresh();
+      }
+    });
   };
 
   markCompleted = data => {
@@ -97,8 +104,10 @@ class App extends Component {
 
   //This function will be called when a list in the Lists panel is clicked on, to set the state of the Active List to be that clicked list
   handleActiveList = list => {
+    this.handleSearchModalOff();
     // make a reference to the list node location
     const dbRef = firebase.database().ref(`lists/${list.key}`);
+    //the key is tied to the button when it is rendered
     let listObj = {};
     // take a snapshot of the data
     dbRef.on("value", function(snapshot) {
@@ -131,7 +140,7 @@ class App extends Component {
     this.setState({
       activeList: null,
       activeListId: null
-    });
+    })
   };
 
   closeAndRefresh = () => {
@@ -151,23 +160,43 @@ class App extends Component {
     });
   };
 
-  // Grabs objects from within firebase convert them into an array and put that array in this.state.lists
-  componentDidMount() {
+  getListData = () => {
     const dbRef = firebase.database().ref("lists");
+    
     dbRef.on("value", response => {
       const newState = [];
       const data = response.val();
+      
       for (let list in data) {
         newState.push({
           key: list,
           listTitle: data[list].listTitle
-        });
-        // console.log(newState);
-      }
+        })
+      };
+      
       this.setState({
         lists: newState
       });
     });
+  }
+
+  setNewListToActive = () => {
+    this.handleSearchModalOff()
+    const dbRef = firebase.database().ref("lists");
+    let newChild;
+    //below code sourecd from: https://stackoverflow.com/questions/46447951/child-added-get-last-item-added-javascript
+    //reason the event listener is writen last is because the event listener expects a callback so you cannot chain. you must chain the methods before hand - t he query is fired when a new child is added to the database
+    dbRef.orderByKey().limitToLast(1).on('child_added', function (snapshot) {
+      //without the orderByKey and limitToLast this function will return ALL the lists
+      //orderByKey and limitToLast are query methods - results are filtered according to the functions defined within these methods. See below
+        //orderByKey method orders by the last added item (works well with push, as we are pushing new lists) 
+        //limitToLast method limit results from the end of the ordered list results. The value passed is 1, the method is returning one item from the bottom of the list (the latest added item) 
+      newChild = snapshot.val();
+    });
+    this.setState({
+      activeListObj: newChild,
+      activeList: newChild.listTitle
+    })
   }
 
   addList = bookList => {
@@ -179,8 +208,9 @@ class App extends Component {
     firebase
       .database()
       .ref(`lists`)
-      .push(newList);
-  };
+      .push(newList)
+      this.setNewListToActive();
+  };  
 
   //Deletes the list when the button it's attached to is clicked after confirming sweetalert popup
   deleteList = bookId => {
@@ -263,6 +293,10 @@ class App extends Component {
       </div>
     );
   }
+
+  componentDidMount() {
+    this.getListData();
+  } 
 }
 
 export default App;

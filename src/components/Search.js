@@ -39,7 +39,7 @@ class Search extends Component {
     })
     .then(response => {
       const res = response.data.GoodreadsResponse.search.results.work;
-      console.log(res);
+      // console.log(res);
       this.setState({
         isLoading: false,
         searchResults: res
