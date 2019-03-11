@@ -81,7 +81,7 @@ class Active extends Component {
           })
       );
     } // else ends
-  }; // FUNCTION ENDS
+  };
 
   // Calculates the # of books read and renders percentage complete
   calculateProgress = () => {
