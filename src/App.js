@@ -38,6 +38,14 @@ class App extends Component {
     dbRef.push(bookToAdd).then(() => {
       this.handleRefresh();
     });
+    Swal.fire({
+      // position: "top-end",
+      type: "success",
+      title: "Book added",
+      showConfirmButton: false,
+      timer: 1200,
+      width: 300
+    });
   };
 
   // when called in Active.js, accepts the element data
