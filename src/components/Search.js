@@ -122,14 +122,14 @@ const BookObject = (props) => {
   const data = props['data'];
   
   return (
-    <div key={data.id["$t"]} className="bookOption" data-key={data.id["$t"]}>
-      {
-        printBookCover(data)
-      }
-      <p>{data.best_book.title}</p>
-      <p>{data.best_book.author.name}</p>
-      <p>{data.average_rating}</p>
-      <button onClick={e => props.addBook(data)}>Add Book</button>
+    <div key={data.id["$t"]} className="book" data-key={data.id["$t"]}>
+      { printBookCover(data) }
+      <div className="bookInfo">
+        <p>{data.best_book.title}</p>
+        <p>{data.best_book.author.name}</p>
+        <p>{data.average_rating}</p>
+        <button onClick={e => props.addBook(data)}>Add Book</button>
+      </div>
     </div>
   )
 
@@ -149,9 +149,9 @@ const Loading = () => {
 const printBookCover = (data) => {
 
   if (data.best_book.image_url.length < 60) {
-    return <img src={data.best_book.image_url.substring(0, 45) + `l` + data.best_book.image_url.substring(46)} alt={`Book cover of ${data.best_book.title}`} />
+    return <img className="bookCover" src={data.best_book.image_url.substring(0, 45) + `l` + data.best_book.image_url.substring(46)} alt={`Book cover of ${data.best_book.title}`} />
   } else {
-    return <img src='https://s.gr-assets.com/assets/nophoto/book/111x148-bcc042a9c91a29c1d680899eff700a03.png' alt={`Book cover of ${data.best_book.title}`} />
+    return <img className="bookCover" src='https://s.gr-assets.com/assets/nophoto/book/111x148-bcc042a9c91a29c1d680899eff700a03.png' alt={`Book cover of ${data.best_book.title}`} />
   }
 
 }
