@@ -7,9 +7,17 @@ class Active extends Component {
     super(props);
     this.state = {
       sortedBooks: [],
-      listRenameInput: false,
       activeListObj: null
+      // listRenameInput: false
     };
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.passedState.activeListId !== this.props.passedState.activeListId) {
+      this.setState({
+        sortedBooks: []
+      })
+    }
   }
 
   // when called, renders books in the active list window
@@ -46,9 +54,10 @@ class Active extends Component {
                   <p>Title: {each.bookTitle}</p>
                   <p>Author: {each.author}</p>
                   <p>Rating: {each.rating}</p>
-                  <button value={booksKeys[i]} onClick={(e) => { this.props.deleteBook(e) }}>Remove Book</button>
-                  <button value={booksKeys[i]} onClick={(e) => { this.props.markCompleted(e) }}>Mark as Completed</button>
+                  <button key={`delete`+`${i}`} value={each.bookKey} onClick={(e) => { this.props.deleteBook(e) }}>Remove Book</button>
+                  <button key={`complete`+`${i}`} value={each.bookKey} onClick={(e) => { this.props.markCompleted(e) }}>Mark as Completed</button>
                 </div>
+
               </div>
             )
           }) :
@@ -63,9 +72,10 @@ class Active extends Component {
                   <p>Author: {each.author}</p>
                   <p>Rating: {each.rating}</p>
                   {/* on deletion of book, pass it the attribute of the Firebase key */}
-                  <button value={booksKeys[i]} onClick={(e)=>{this.props.deleteBook(e)}}>Remove Book</button>
-                  <button value={booksKeys[i]} onClick={(e) => {this.props.markCompleted(e)}}>Mark as Completed</button>
+                  <button key={`delete`+`${i}`} value={booksKeys[i]} onClick={(e)=>{this.props.deleteBook(e)}}>Remove Book</button>
+                  <button key={`complete`+`${i}`} value={booksKeys[i]} onClick={(e) => {this.props.markCompleted(e)}}>Mark as Completed</button>
                 </div>
+
               </div>             
             )
           })
@@ -111,8 +121,11 @@ class Active extends Component {
     const sortedBookList = [];
     // Object.keys gets the key values for the objects inside books and returns an array
     // .forEach then applies a function to each of those keys
-    Object.keys(books).forEach(key => {
+    const booksKeys = Object.keys(books)
+    
+    booksKeys.forEach(key => {
       // combine keys with books to push the individual books into the array
+      books[key].bookKey = key;
       sortedBookList.push(books[key]);
     });
 
@@ -130,36 +143,38 @@ class Active extends Component {
     });
 
     //setState triggering the render lifecycle. renderBooks has a check for sortedResults
+    console.log(sortedBookList)
     this.setState({
       sortedBooks: sortedBookList
     });
   };
 
-  listRenameInputOn = () => {
-    this.setState({
-      listRenameInput: true
-    });
-  };
+  // // TOGGLE FOR DISPLAYING LIST RENAME OPTION
+  // listRenameInputOn = () => {
+  //   this.setState({
+  //     listRenameInput: true
+  //   });
+  // };
 
-  listRenameInputOff = () => {
-    this.setState({
-      listRenameInput: false
-    });
-  };
-
-  // FOR EDITING LIST NAME
-  handleChange = event => {
-    // props.setState({
-    //   newListName: event.target.value
-    // });
-  };
+  // listRenameInputOff = () => {
+  //   this.setState({
+  //     listRenameInput: false
+  //   });
+  // };
 
   // FOR EDITING LIST NAME
-  handleSubmit = event => {
-    event.preventDefault();
+  // handleChange = event => {
+  //   // props.setState({
+  //   //   newListName: event.target.value
+  //   // });
+  // };
 
-    this.listRenameInputOff();
-  };
+  // FOR EDITING LIST NAME
+  // handleSubmit = event => {
+  //   event.preventDefault();
+
+  //   this.listRenameInputOff();
+  // };
 
   //onclick sort books by date added - we can get fancy and only show one button at a time
   sortBooksByDateAdded = () => {
@@ -211,7 +226,7 @@ class Active extends Component {
               </form>
             ) : (
               <button onClick={this.listRenameInputOn}>Edit List Name</button>
-            )}
+            )} */}
 
             <p onClick={this.props.handleSearchModalOn}>
               {" "}
