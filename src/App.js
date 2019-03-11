@@ -124,24 +124,15 @@ class App extends Component {
           activeListObj: {
             books: val
           }
-<<<<<<< HEAD
-        })
-      })
-=======
         });
       });
->>>>>>> 084dfb5251c561f85cda683ca5ab0bb133949b9c
   };
 
   closeActiveList = () => {
     this.setState({
       activeList: null,
       activeListId: null
-<<<<<<< HEAD
     })
-=======
-    });
->>>>>>> 084dfb5251c561f85cda683ca5ab0bb133949b9c
   };
 
   closeAndRefresh = () => {
