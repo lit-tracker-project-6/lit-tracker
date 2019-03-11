@@ -12,6 +12,14 @@ class Active extends Component {
     };
   }
 
+  componentDidUpdate(prevProps) {
+    if (prevProps.passedState.activeListId !== this.props.passedState.activeListId) {
+      this.setState({
+        sortedBooks: []
+      })
+    }
+  }
+
   // when called, renders books in the active list window
   renderBooks = () => {
     // variable to store books object
@@ -45,8 +53,8 @@ class Active extends Component {
                 <p>Author:{each.author}</p>
                 <p>Rating:{each.rating}</p>
                 {this.printBookCover(each)}
-                <button value={booksKeys[i]} onClick={(e) => { this.props.deleteBook(e) }}>Remove Book</button>
-                <button value={booksKeys[i]} onClick={(e) => { this.props.markCompleted(e) }}>Mark as Completed</button>
+                <button key={`delete`+`${i}`} value={each.bookKey} onClick={(e) => { this.props.deleteBook(e) }}>Remove Book</button>
+                <button key={`complete`+`${i}`} value={each.bookKey} onClick={(e) => { this.props.markCompleted(e) }}>Mark as Completed</button>
               </div>
             )
           }) :
@@ -60,8 +68,8 @@ class Active extends Component {
                 <p>Rating:{each.rating}</p>
                 {this.printBookCover(each)}
                 {/* on deletion of book, pass it the attribute of the Firebase key */}
-                <button value={booksKeys[i]} onClick={(e)=>{this.props.deleteBook(e)}}>Remove Book</button>
-                <button value={booksKeys[i]} onClick={(e) => {this.props.markCompleted(e)}}>Mark as Completed</button>
+                <button key={`delete`+`${i}`} value={booksKeys[i]} onClick={(e)=>{this.props.deleteBook(e)}}>Remove Book</button>
+                <button key={`complete`+`${i}`} value={booksKeys[i]} onClick={(e) => {this.props.markCompleted(e)}}>Mark as Completed</button>
               </div>             
             )
           })
@@ -107,8 +115,11 @@ class Active extends Component {
     const sortedBookList = [];
     // Object.keys gets the key values for the objects inside books and returns an array
     // .forEach then applies a function to each of those keys
-    Object.keys(books).forEach(key => {
+    const booksKeys = Object.keys(books)
+    
+    booksKeys.forEach(key => {
       // combine keys with books to push the individual books into the array
+      books[key].bookKey = key;
       sortedBookList.push(books[key]);
     });
 
@@ -126,6 +137,7 @@ class Active extends Component {
     });
 
     //setState triggering the render lifecycle. renderBooks has a check for sortedResults
+    console.log(sortedBookList)
     this.setState({
       sortedBooks: sortedBookList
     });
