@@ -42,24 +42,31 @@ class App extends Component {
 
   // when called in Active.js, accepts the element data
   deleteBook = data => {
-    // *TEMPORARY* confirmation of book deletion
-    if (window.confirm("Are you sure you want to remove this book?")) {
-      // variables to store the target list id and target book id
-      const targetList = this.state.activeListId;
-      const targetBook = data.target.value;
-      // console.log('key of book to delete', targetBook)
+    // variables to store the target list id and target book id
+    const targetList = this.state.activeListId;
+    const targetBook = data.target.value;
+    //prompt for sweetalert popup
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      type: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!"
+    }).then(result => {
+      if (result.value) {
+        // create reference to the target book in the target list
+        const dbRef = firebase
+          .database()
+          .ref(`lists/${targetList}/books/${targetBook}`);
 
-      // create reference to the target book in the target list
-      const dbRef = firebase
-        .database()
-        .ref(`lists/${targetList}/books/${targetBook}`);
-      // console.log("path to target", dbRef.path.pieces_);
+        // remove target book from Firebase
+        dbRef.remove();
 
-      // remove target book from Firebase
-      dbRef.remove();
-
-      this.handleRefresh();
-    }
+        this.handleRefresh();
+      }
+    });
   };
 
   markCompleted = data => {
