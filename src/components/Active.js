@@ -7,8 +7,8 @@ class Active extends Component {
     super(props);
     this.state = {
       sortedBooks: [],
-      listRenameInput: false,
       activeListObj: null
+      // listRenameInput: false
     };
   }
 
@@ -143,31 +143,32 @@ class Active extends Component {
     });
   };
 
-  listRenameInputOn = () => {
-    this.setState({
-      listRenameInput: true
-    });
-  };
+  // // TOGGLE FOR DISPLAYING LIST RENAME OPTION
+  // listRenameInputOn = () => {
+  //   this.setState({
+  //     listRenameInput: true
+  //   });
+  // };
 
-  listRenameInputOff = () => {
-    this.setState({
-      listRenameInput: false
-    });
-  };
-
-  // FOR EDITING LIST NAME
-  handleChange = event => {
-    // props.setState({
-    //   newListName: event.target.value
-    // });
-  };
+  // listRenameInputOff = () => {
+  //   this.setState({
+  //     listRenameInput: false
+  //   });
+  // };
 
   // FOR EDITING LIST NAME
-  handleSubmit = event => {
-    event.preventDefault();
+  // handleChange = event => {
+  //   // props.setState({
+  //   //   newListName: event.target.value
+  //   // });
+  // };
 
-    this.listRenameInputOff();
-  };
+  // FOR EDITING LIST NAME
+  // handleSubmit = event => {
+  //   event.preventDefault();
+
+  //   this.listRenameInputOff();
+  // };
 
   //onclick sort books by date added - we can get fancy and only show one button at a time
   sortBooksByDateAdded = () => {
@@ -209,14 +210,14 @@ class Active extends Component {
 
 
             {/* FOR EDITING LIST NAME */}
-            {this.state.listRenameInput === true ? (
+            {/* {this.state.listRenameInput === true ? (
               <form action="submit" onSubmit={this.handleSubmit}>
                 <input type="text" onChange={this.handleChange} required />
                 <input type="submit" />
               </form>
             ) : (
               <button onClick={this.listRenameInputOn}>Edit List Name</button>
-            )}
+            )} */}
 
             <p onClick={this.props.handleSearchModalOn}>
               {" "}

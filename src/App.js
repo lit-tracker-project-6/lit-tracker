@@ -1,4 +1,4 @@
- import React, { Component } from "react";
+import React, { Component } from "react";
 import "./App.css";
 import firebase from "./firebase.js";
 import Header from "./components/Header.js";
@@ -7,6 +7,7 @@ import Lists from "./components/Lists.js";
 import Active from "./components/Active.js";
 import Footer from "./components/Footer.js";
 import Search from "./components/Search.js";
+import Swal from "sweetalert2";
 
 class App extends Component {
   constructor(props) {
@@ -21,7 +22,7 @@ class App extends Component {
   }
 
   // on call, accepts book data from Search.js to adds a book to the active list
-  addBook = (data) => {
+  addBook = data => {
     // using the passed data, defines the book object
     const bookToAdd = {
       bookTitle: data.best_book.title,
@@ -34,9 +35,9 @@ class App extends Component {
     const targetList = this.state.activeListId;
     const dbRef = firebase.database().ref(`lists/${targetList}/books`);
     // pushs the book object to the active list's Firebase node
-    dbRef.push(bookToAdd).then(()=> {
+    dbRef.push(bookToAdd).then(() => {
       this.handleRefresh();
-    })
+    });
   };
 
   // when called in Active.js, accepts the element data
@@ -55,9 +56,9 @@ class App extends Component {
       // console.log("path to target", dbRef.path.pieces_);
 
       // remove target book from Firebase
-      dbRef.remove()
+      dbRef.remove();
 
-      this.handleRefresh()
+      this.handleRefresh();
     }
   };
 
@@ -65,7 +66,7 @@ class App extends Component {
     // variables to store the target list id and target book id
     const targetList = this.state.activeListId;
     const targetBook = data.target.value;
-  
+
     // create reference to the target book in the target list
     const dbRef = firebase
       .database()
@@ -75,22 +76,22 @@ class App extends Component {
     // checking/evaluating value of completion in firebase
     let checkCompletion;
     dbRef.on("value", function(snapshot) {
-        checkCompletion = snapshot.val();
-    })
-      // conditional statement to "toggle" value of isCompleted state
+      checkCompletion = snapshot.val();
+    });
+    // conditional statement to "toggle" value of isCompleted state
     if (checkCompletion.isCompleted === false) {
       updateCompleted = {
         isCompleted: true
       };
-      dbRef.update(updateCompleted)
+      dbRef.update(updateCompleted);
     } else {
       updateCompleted = {
         isCompleted: false
       };
     }
     // update firebase with completion status of current book
-    dbRef.update(updateCompleted)
-    
+    dbRef.update(updateCompleted);
+
     this.handleRefresh();
   };
 
@@ -113,29 +114,30 @@ class App extends Component {
 
   handleRefresh = () => {
     const database = firebase.database();
-    database.ref(`lists/${this.state.activeListId}/books`)
-      .once('value')
-      .then((snapshot) => {
+    database
+      .ref(`lists/${this.state.activeListId}/books`)
+      .once("value")
+      .then(snapshot => {
         const val = snapshot.val();
         this.setState({
           activeListObj: {
             books: val
           }
-        })
-      })
-  }
+        });
+      });
+  };
 
   closeActiveList = () => {
     this.setState({
       activeList: null,
       activeListId: null
-    })
-  }
+    });
+  };
 
   closeAndRefresh = () => {
     this.handleRefresh();
     this.handleSearchModalOff();
-  }
+  };
 
   handleSearchModalOn = () => {
     this.setState({
@@ -180,16 +182,26 @@ class App extends Component {
       .push(newList);
   };
 
-  //Deletes the list when the button it's attached to is clicked
+  //Deletes the list when the button it's attached to is clicked after confirming sweetalert popup
   deleteList = bookId => {
-    if (window.confirm("Are you sure you want to delete?")) {
-      const dbRef = firebase.database().ref("lists/" + bookId);
-      dbRef.remove();
-      this.setState({
-        activeList: null,
-        activeListId: null
-      });
-    }
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      type: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!"
+    }).then(result => {
+      if (result.value) {
+        const dbRef = firebase.database().ref("lists/" + bookId);
+        dbRef.remove();
+        this.setState({
+          activeList: null,
+          activeListId: null
+        });
+      }
+    });
   };
 
   render() {
@@ -203,25 +215,28 @@ class App extends Component {
             addList={this.addList}
             deleteList={this.deleteList}
           />
-          {(this.state.activeList === null && this.state.searchModal !== true) && <Landing />}
-          {(this.state.activeList !== null && this.state.searchModal !== true) && 
-          <Active 
-            passedState={this.state}
-            handleSearchModalOn={this.handleSearchModalOn}
-            deleteList={this.deleteList}
-            deleteBook={this.deleteBook}
-            handleRefresh={this.handleRefresh}
-            markCompleted={this.markCompleted}
-            closeActiveList={this.closeActiveList}
-          />}
+          {this.state.activeList === null &&
+            this.state.searchModal !== true && <Landing />}
+          {this.state.activeList !== null &&
+            this.state.searchModal !== true && (
+              <Active
+                passedState={this.state}
+                handleSearchModalOn={this.handleSearchModalOn}
+                deleteList={this.deleteList}
+                deleteBook={this.deleteBook}
+                handleRefresh={this.handleRefresh}
+                markCompleted={this.markCompleted}
+                closeActiveList={this.closeActiveList}
+              />
+            )}
 
-          {this.state.searchModal === true && 
-          <Search 
-            passedState={this.state}
-            addBook={this.addBook}
-            closeAndRefresh={this.closeAndRefresh}
-          />
-          }
+          {this.state.searchModal === true && (
+            <Search
+              passedState={this.state}
+              addBook={this.addBook}
+              closeAndRefresh={this.closeAndRefresh}
+            />
+          )}
 
           {/* {this.state.activeList !== null ? (
             <Active
