@@ -215,8 +215,6 @@ class Active extends Component {
 
           <div className="activeListDisplay">
 
-
-
             {/* FOR EDITING LIST NAME */}
             {/* {this.state.listRenameInput === true ? (
               <form action="submit" onSubmit={this.handleSubmit}>
@@ -226,12 +224,6 @@ class Active extends Component {
             ) : (
               <button onClick={this.listRenameInputOn}>Edit List Name</button>
             )} */}
-
-            {/* <p onClick={this.props.handleSearchModalOn}>
-              {" "}
-              Add Books to this list
-            </p> */}
-
 
             <div className="books">{this.renderBooks()}</div>
           </div>
