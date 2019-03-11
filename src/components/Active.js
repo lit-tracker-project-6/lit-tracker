@@ -199,7 +199,7 @@ class Active extends Component {
 
       <div className='active'>
           <div className="activeHeading clearfix">
-          <button className="close" title="close" onClick={this.props.closeActiveList}><i class="fas fa-times"></i></button>
+          <button className="close" title="close" onClick={this.props.closeActiveList}><i className="fas fa-times"></i></button>
             <h2>{this.props.passedState.activeList}</h2>
             <div className="activeHeadingButtons">
               <button title="Add books" className="addBooks" onClick={this.props.handleSearchModalOn}><i className="fas fa-book-medical"></i></button>        
