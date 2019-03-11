@@ -56,9 +56,9 @@ class Active extends Component {
                   <p>Rating: {each.rating}</p>
                   <div className="progressCheck clearfix">
                     <p>Read:</p>
-                    {each.isCompleted === true ? <button className="checkButton checked" key={`complete` + `${i}`} value={booksKeys[i]} onClick={(e) => { this.props.markCompleted(e) }}><i className="fas fa-check"></i></button> : <button className="checkButton" key={`complete` + `${i}`} value={booksKeys[i]} onClick={(e) => { this.props.markCompleted(e) }}><i className="fas fa-check"></i></button>}
+                    {each.isCompleted === true ? <button className="checkButton checked" key={`complete${i}`} value={each.bookKey} onClick={(e) => { this.props.markCompleted(e) }}><i className="fas fa-check"></i></button> : <button className="checkButton" key={`complete${i}`} value={each.bookKey} onClick={(e) => { this.props.markCompleted(e) }}><i className="fas fa-check"></i></button>}
                   </div>                  
-                  <button className="deleteBook" title="remove from list" key={`delete` + `${i}`} value={each.bookKey} onClick={(e) => { this.props.deleteBook(e) }}><i className="fas fa-trash"></i></button>
+                  <button className="deleteBook" title="remove from list" key={`delete${i}`} value={each.bookKey} onClick={(e) => { this.props.deleteBook(e) }}><i className="fas fa-trash"></i></button>
                 </div>
 
               </div>
@@ -76,9 +76,9 @@ class Active extends Component {
                   <p>Rating: {each.rating}</p>
                   <div className="progressCheck clearfix">
                     <p>Read:</p>
-                    {each.isCompleted === true ? <button className="checkButton checked" key={`complete` + `${i}`} value={booksKeys[i]} onClick={(e) => { this.props.markCompleted(e) }}><i className="fas fa-check"></i></button> : <button className="checkButton" key={`complete` + `${i}`} value={booksKeys[i]} onClick={(e) => { this.props.markCompleted(e) }}><i className="fas fa-check"></i></button>}
+                    {each.isCompleted === true ? <button className="checkButton checked" key={`complete${i}`} value={booksKeys[i]} onClick={(e) => { this.props.markCompleted(e) }}><i className="fas fa-check"></i></button> : <button className="checkButton" key={`complete${i}`} value={booksKeys[i]} onClick={(e) => { this.props.markCompleted(e) }}><i className="fas fa-check"></i></button>}
                     </div>
-                  <button className="deleteBook" title="remove from list" key={`delete` + `${i}`} value={booksKeys[i]} onClick={(e) => { this.props.deleteBook(e) }}><i className="fas fa-trash"></i></button>
+                  <button className="deleteBook" title="remove from list" key={`delete${i}`} value={booksKeys[i]} onClick={(e) => { this.props.deleteBook(e) }}><i className="fas fa-trash"></i></button>
                 </div>
               </div>             
             )
@@ -110,10 +110,14 @@ class Active extends Component {
         }
       });
       // calculate the percent of books read with the previous mentioned variables
-      const percentRead = (completedBooks / numBooks) * 100;
+      const progressString = `${completedBooks}/${numBooks}`;
       // return the percent read, rounded to the nearest integer
-    
-      return <p className="progress">{Math.round(percentRead)}% read</p>;
+      
+      if (completedBooks === numBooks) {
+        return <p className="progress complete">{progressString} books read</p>;
+      } else {
+        return <p className="progress">{progressString} books read</p>;
+      }
     }
   } // calculateProgress function ends
 
