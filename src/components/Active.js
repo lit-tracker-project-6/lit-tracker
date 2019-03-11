@@ -54,8 +54,8 @@ class Active extends Component {
                   <p>Title: {each.bookTitle}</p>
                   <p>Author: {each.author}</p>
                   <p>Rating: {each.rating}</p>
-                  <button key={`delete`+`${i}`} value={each.bookKey} onClick={(e) => { this.props.deleteBook(e) }}>Remove Book</button>
-                  <button key={`complete`+`${i}`} value={each.bookKey} onClick={(e) => { this.props.markCompleted(e) }}>Mark as Completed</button>
+                  <button key={`delete${i}`} value={each.bookKey} onClick={(e) => { this.props.deleteBook(e) }}>Remove Book</button>
+                  <button key={`complete${i}`} value={each.bookKey} onClick={(e) => { this.props.markCompleted(e) }}>Mark as Completed</button>
                 </div>
 
               </div>
@@ -72,8 +72,8 @@ class Active extends Component {
                   <p>Author: {each.author}</p>
                   <p>Rating: {each.rating}</p>
                   {/* on deletion of book, pass it the attribute of the Firebase key */}
-                  <button key={`delete`+`${i}`} value={booksKeys[i]} onClick={(e)=>{this.props.deleteBook(e)}}>Remove Book</button>
-                  <button key={`complete`+`${i}`} value={booksKeys[i]} onClick={(e) => {this.props.markCompleted(e)}}>Mark as Completed</button>
+                  <button key={`delete${i}`} value={booksKeys[i]} onClick={(e)=>{this.props.deleteBook(e)}}>Remove Book</button>
+                  <button key={`complete${i}`} value={booksKeys[i]} onClick={(e) => {this.props.markCompleted(e)}}>Mark as Completed</button>
                 </div>
 
               </div>             
