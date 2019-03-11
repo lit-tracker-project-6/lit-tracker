@@ -143,7 +143,6 @@ class Active extends Component {
     });
 
     //setState triggering the render lifecycle. renderBooks has a check for sortedResults
-    console.log(sortedBookList)
     this.setState({
       sortedBooks: sortedBookList
     });
@@ -228,7 +227,7 @@ class Active extends Component {
               <button onClick={this.listRenameInputOn}>Edit List Name</button>
             )} */}
 
-            <p onClick={this.props.handleSearchModalOn}>
+            {/* <p onClick={this.props.handleSearchModalOn}>
               {" "}
               Add Books to this list
             </p> */}

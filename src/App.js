@@ -97,6 +97,7 @@ class App extends Component {
 
   //This function will be called when a list in the Lists panel is clicked on, to set the state of the Active List to be that clicked list
   handleActiveList = list => {
+    this.handleSearchModalOff();
     // make a reference to the list node location
     const dbRef = firebase.database().ref(`lists/${list.key}`);
     let listObj = {};
