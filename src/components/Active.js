@@ -54,8 +54,8 @@ class Active extends Component {
                   <p>Title: {each.bookTitle}</p>
                   <p>Author: {each.author}</p>
                   <p>Rating: {each.rating}</p>
-                  <button key={`delete`+`${i}`} value={each.bookKey} onClick={(e) => { this.props.deleteBook(e) }}>Remove Book</button>
-                  <button key={`complete`+`${i}`} value={each.bookKey} onClick={(e) => { this.props.markCompleted(e) }}>Mark as Completed</button>
+                  <button key={`delete${i}`} value={each.bookKey} onClick={(e) => { this.props.deleteBook(e) }}>Remove Book</button>
+                  <button key={`complete${i}`} value={each.bookKey} onClick={(e) => { this.props.markCompleted(e) }}>Mark as Completed</button>
                 </div>
 
               </div>
@@ -72,8 +72,8 @@ class Active extends Component {
                   <p>Author: {each.author}</p>
                   <p>Rating: {each.rating}</p>
                   {/* on deletion of book, pass it the attribute of the Firebase key */}
-                  <button key={`delete`+`${i}`} value={booksKeys[i]} onClick={(e)=>{this.props.deleteBook(e)}}>Remove Book</button>
-                  <button key={`complete`+`${i}`} value={booksKeys[i]} onClick={(e) => {this.props.markCompleted(e)}}>Mark as Completed</button>
+                  <button key={`delete${i}`} value={booksKeys[i]} onClick={(e)=>{this.props.deleteBook(e)}}>Remove Book</button>
+                  <button key={`complete${i}`} value={booksKeys[i]} onClick={(e) => {this.props.markCompleted(e)}}>Mark as Completed</button>
                 </div>
 
               </div>             
@@ -143,7 +143,6 @@ class Active extends Component {
     });
 
     //setState triggering the render lifecycle. renderBooks has a check for sortedResults
-    console.log(sortedBookList)
     this.setState({
       sortedBooks: sortedBookList
     });
@@ -200,7 +199,7 @@ class Active extends Component {
 
       <div className='active'>
           <div className="activeHeading clearfix">
-          <button className="close" title="close" onClick={this.props.closeActiveList}><i class="fas fa-times"></i></button>
+          <button className="close" title="close" onClick={this.props.closeActiveList}><i className="fas fa-times"></i></button>
             <h2>{this.props.passedState.activeList}</h2>
             <div className="activeHeadingButtons">
               <button title="Add books" className="addBooks" onClick={this.props.handleSearchModalOn}><i className="fas fa-book-medical"></i></button>        
@@ -216,8 +215,6 @@ class Active extends Component {
 
           <div className="activeListDisplay">
 
-
-
             {/* FOR EDITING LIST NAME */}
             {/* {this.state.listRenameInput === true ? (
               <form action="submit" onSubmit={this.handleSubmit}>
@@ -227,12 +224,6 @@ class Active extends Component {
             ) : (
               <button onClick={this.listRenameInputOn}>Edit List Name</button>
             )} */}
-
-            <p onClick={this.props.handleSearchModalOn}>
-              {" "}
-              Add Books to this list
-            </p> */}
-
 
             <div className="books">{this.renderBooks()}</div>
           </div>

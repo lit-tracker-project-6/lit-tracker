@@ -97,6 +97,7 @@ class App extends Component {
 
   //This function will be called when a list in the Lists panel is clicked on, to set the state of the Active List to be that clicked list
   handleActiveList = list => {
+    this.handleSearchModalOff();
     // make a reference to the list node location
     const dbRef = firebase.database().ref(`lists/${list.key}`);
     //the key is tied to the button when it is rendered
@@ -173,6 +174,7 @@ class App extends Component {
   }
 
   setNewListToActive = () => {
+    this.handleSearchModalOff()
     const dbRef = firebase.database().ref("lists");
     let newChild;
     //below code sourecd from: https://stackoverflow.com/questions/46447951/child-added-get-last-item-added-javascript
