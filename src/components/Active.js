@@ -8,7 +8,6 @@ class Active extends Component {
     this.state = {
       sortedBooks: [],
       activeListObj: null
-      // listRenameInput: false
     };
   }
 
@@ -59,13 +58,12 @@ class Active extends Component {
                     <p>Read:</p>
                     {                    
                       each.isCompleted ? 
-                      <button className='checkButton checked' key={`complete${i}`} value={each.bookKey} onClick={(e) => { this.props.markCompleted(e) }}><i className="fas fa-check"></i></button> :
-                      <button className="checkButton" key={`complete${i}`} value={each.bookKey} onClick={(e) => { this.props.markCompleted(e) }}><i className="fas fa-check"></i></button> 
+                        <button aria-label={`${each.bookTitle} has been finished, click to mark unfinished`} className='checkButton checked' key={`complete${i}`} value={each.bookKey} onClick={(e) => { this.props.markCompleted(e) }}><i className="fas fa-check"></i></button> :
+                        <button aria-label={`${each.bookTitle} is unfinished, click to mark finished`} className="checkButton" key={`complete${i}`} value={each.bookKey} onClick={(e) => { this.props.markCompleted(e) }}><i className="fas fa-check"></i></button> 
                     }
                   </div>                  
-                  <button className="deleteBook" title="remove from list" key={`delete${i}`} value={each.bookKey} onClick={(e) => { this.props.deleteBook(e) }}><i className="fas fa-trash"></i></button>
+                  <button aria-label={`Delete ${each.bookTitle} from this list`} className="deleteBook" title="remove from list" key={`delete${i}`} value={each.bookKey} onClick={(e) => { this.props.deleteBook(e) }}><i className="fas fa-trash"></i></button>
                 </div>
-
               </div>
             )
           }) :
@@ -83,11 +81,11 @@ class Active extends Component {
                     <p>Read:</p>
                     {
                       each.isCompleted === true ? 
-                      <button className="checkButton checked" key={`complete${i}`} value={booksKeys[i]} onClick={(e) => { this.props.markCompleted(e) }}><i className="fas fa-check"></i></button> : 
-                      <button className="checkButton" key={`complete${i}`} value={booksKeys[i]} onClick={(e) => { this.props.markCompleted(e) }}><i className="fas fa-check"></i></button>
+                        <button aria-label={`${each.bookTitle} has been finished, click to mark unfinished`} className="checkButton checked" key={`complete${i}`} value={booksKeys[i]} onClick={(e) => { this.props.markCompleted(e) }}><i className="fas fa-check"></i></button> : 
+                        <button aria-label={`${each.bookTitle} is unfinished, click to mark finished`} className="checkButton" key={`complete${i}`} value={booksKeys[i]} onClick={(e) => { this.props.markCompleted(e) }}><i className="fas fa-check"></i></button>
                     }
-                    </div>
-                  <button className="deleteBook" title="remove from list" key={`delete${i}`} value={booksKeys[i]} onClick={(e) => { this.props.deleteBook(e) }}><i className="fas fa-trash"></i></button>
+                  </div>
+                  <button aria-label={`Delete ${each.bookTitle} from this list`} className="deleteBook" title="remove from list" key={`delete${i}`} value={booksKeys[i]} onClick={(e) => { this.props.deleteBook(e) }}><i className="fas fa-trash"></i></button>
                 </div>
               </div>             
             )
@@ -123,9 +121,9 @@ class Active extends Component {
       // return the percent read, rounded to the nearest integer
       
       if (completedBooks === numBooks) {
-        return <p className="progress complete">{progressString} books read</p>;
+        return <p aria-live="polite" className="progress complete">{progressString} books read</p>;
       } else {
-        return <p className="progress">{progressString} books read</p>;
+        return <p aria-live="polite" className="progress">{progressString} books read</p>;
       }
     }
   } // calculateProgress function ends
@@ -217,15 +215,15 @@ class Active extends Component {
 
       <div className='active'>
           <div className="activeHeading clearfix">
-          <button className="close" title="close list" onClick={this.props.closeActiveList}><i className="fas fa-times"></i></button>
+          <button aria-label={`Close ${this.props.passedState.activeList}`} className="close" title="close list" onClick={this.props.closeActiveList} onKeyPress={this.props.closeActiveList}><i className="fas fa-times"></i></button>
             <h2>{this.props.passedState.activeList}</h2>
             <div className="activeHeadingButtons clearfix">
-              <button title="Add books" className="addBooks" onClick={this.props.handleSearchModalOn}><i className="fas fa-book-medical"></i></button>        
+            <button aria-label="Look for books to add" title="Add books" className="addBooks" onClick={this.props.handleSearchModalOn}><i className="fas fa-book-medical"></i></button>        
               {this.calculateProgress()}
               <div className="sorting">
                 <p>Sort by: </p>
-                <button className="rating" title="rating" onClick={this.sortBooksByRating}><i className="fas fa-star"></i></button>
-                <button className="date" title="date added" onClick={this.sortBooksByDateAdded}><i className="fas fa-calendar-day"></i></button>
+                <button aria-label="Sort books by rating" className="rating" title="rating" onClick={this.sortBooksByRating}><i className="fas fa-star"></i></button>
+                <button aria-label="Sort books by date added" className="date" title="date added" onClick={this.sortBooksByDateAdded}><i className="fas fa-calendar-day"></i></button>
               </div>
             </div>
 

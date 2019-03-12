@@ -14,7 +14,7 @@ class Header extends Component {
       <div className='header'>
         <h1>Lit Tracker</h1>
         <img src={lighthouseLogo} alt="A logo of a stack of books with a lighthouse"/>
-        <button title="view reading lists" onClick={this.props.handleListModal}><i class="fas fa-list"></i></button>
+        <button title="view reading lists" onClick={this.props.handleListModal}><i className="fas fa-list"></i></button>
       </div>
     )
   }

@@ -6,7 +6,6 @@ import Landing from "./components/Landing.js";
 import Lists from "./components/Lists.js";
 import ListsMobile from "./components/ListsMobile.js";
 import Active from "./components/Active.js";
-import Footer from "./components/Footer.js";
 import Search from "./components/Search.js";
 import Swal from "sweetalert2";
 
@@ -127,7 +126,6 @@ class App extends Component {
     dbRef.on("value", function(snapshot) {
       listObj = snapshot.val();
     });
-    // console.log('list?',listObj)
     this.setState({
       activeList: list.listTitle,
       activeListId: list.key,
@@ -146,7 +144,6 @@ class App extends Component {
     dbRef.on("value", function (snapshot) {
       listObj = snapshot.val();
     });
-    // console.log('list?',listObj)
     this.setState({
       activeList: list.listTitle,
       activeListId: list.key,
@@ -286,7 +283,7 @@ class App extends Component {
           handleListModal={this.handleListModal}
         />
         <div className="banner"></div>
-        <div className="mainContent clearfix">
+        <div className="mainContent clearfix" aria-live='polite'>
           {this.state.activeList === null && this.state.listModal === false &&
             this.state.searchModal !== true && <Landing />}
           <Lists
@@ -323,7 +320,6 @@ class App extends Component {
             />
           )}
         </div>
-        <Footer />
       </div>
     );
   }
