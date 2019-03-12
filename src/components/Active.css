@@ -181,3 +181,25 @@
 .complete {
     background-color: #256bed
 }
+
+@media only screen and (max-width: 1350px) {
+    .active h2 {
+        width: 90%;
+        margin-bottom: 8px;
+        margin-left: 10%;
+        text-align: left;
+    }
+
+    .activeHeadingButtons {
+        margin-bottom: 8px;
+        margin-left: 10%;
+        float: left;
+    }
+}
+
+@media only screen and (max-width: 1000px) {
+    .book {
+        width: calc(99% - 20px);
+        margin-top: 20px;
+    }
+}
