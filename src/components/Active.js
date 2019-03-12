@@ -8,7 +8,6 @@ class Active extends Component {
     this.state = {
       sortedBooks: [],
       activeListObj: null
-      // listRenameInput: false
     };
   }
 
@@ -65,7 +64,6 @@ class Active extends Component {
                   </div>                  
                   <button className="deleteBook" title="remove from list" key={`delete${i}`} value={each.bookKey} onClick={(e) => { this.props.deleteBook(e) }}><i className="fas fa-trash"></i></button>
                 </div>
-
               </div>
             )
           }) :

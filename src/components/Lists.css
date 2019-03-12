@@ -90,6 +90,7 @@
     float: left;
 }
 
+
 @media (max-width: 1000px){
     .lists{
         display: none;
@@ -98,3 +99,4 @@
         display: block;
     }
 }
+
