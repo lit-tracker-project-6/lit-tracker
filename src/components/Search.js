@@ -98,7 +98,7 @@ class Search extends Component {
           <button className="closeSearch" title="close search" onClick={this.props.closeAndRefresh}><i className="fas fa-times"></i></button>
           <h2>Search for a book!</h2>
           <form action="submit" onSubmit={this.getSearchResults}>
-            <label className="visuallyhidden">Search by book or author</label>
+            <label className="visuallyHidden">Search by book or author</label>
             <input type="text" placeholder="Search by book or author" onChange={this.handleChange} />
             <button aria-label="search button" type="submit" className="searchButton"><i class="fas fa-search"></i></button>
           </form>

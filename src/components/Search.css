@@ -35,9 +35,8 @@
 }
 
 .search h2 {
-    margin: 0 auto;
-    width: 85%;
-    text-align: center;
+    margin: 0 0 0 60px;
+    width: 315px;
     padding-top: 8px;
     font-size: 2rem;
 }
@@ -47,6 +46,8 @@
     padding-bottom: 10px;
     padding-left:10px;
     text-align: right;
+    width: 425px;
+    display: inline-block;
 }
 
 .search input[type="text"]{
