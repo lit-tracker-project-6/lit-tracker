@@ -13,10 +13,14 @@ class Landing extends Component {
   render() {
     return (
       <div className="landing clearfix">
-        <span><i class="fab fa-readme"></i></span>
+        <span>
+          <i class="fab fa-readme" />
+        </span>
         <div className="landingHeader">
           <h2>Lit Tracker</h2>
-          <h3>Guiding you toward your reading goals</h3>
+          <h3>
+            Guiding you toward <span className="landingHeaderSpan">your reading goals</span>
+          </h3>
         </div>
         <div className="landingContent">
           <h3>Get Started:</h3>
@@ -33,7 +37,7 @@ class Landing extends Component {
           </ol>
         </div>
       </div>
-    )
+    );
   }
 }
 

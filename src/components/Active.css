@@ -203,3 +203,10 @@
         margin-top: 20px;
     }
 }
+
+@media (max-width: 1000px){
+    .active {
+        float: none;
+        margin: 0 auto;
+    }
+}
