@@ -8,7 +8,7 @@
     padding: 100px 100px;
 }
 
-.landing span {
+.landing i {
     float: left;
     font-size: 4rem;
     color: #256bed;
@@ -52,6 +52,44 @@
     .landing {
         float: none;
         margin: 0 auto;
+        padding: 5%;
     }
 }
 
+@media (max-width: 900px){
+    .landing i {
+        font-size: 2.5rem;
+    }
+
+    .landingHeader h2 {
+        font-size: 1.5rem;
+    }
+
+    .landingHeader h3 span{
+        display: block
+    }
+
+    .landingContent h3 {
+        font-size: 1.2rem;
+    }
+}
+
+@media (max-width: 600px){
+    .landing i {
+        font-size: 2rem;
+    }
+
+    .landingHeader h2 {
+        font-size: 1.5rem;
+    }
+
+    .landingContent h3 {
+        font-size: 1.2rem;
+    }
+}
+
+@media (max-width: 500px){
+    .landing i {
+        display: none;
+    }
+}
