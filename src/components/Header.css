@@ -8,3 +8,60 @@
     top:0;
     left: 27%;
 }
+
+.header button {
+    font-size: 2rem;
+    color: #256bed;
+    transition: all 0.3s;
+    cursor: pointer;
+    position: absolute;
+    top: 0;
+    right: 30px;
+    display: none;
+}
+
+.header button:hover {
+    color:#e9d758;
+}
+
+/* MEDIA QUERIES */
+
+@media (max-width: 1300px){
+    .header img {
+        left: 20%;
+    }
+}
+
+@media (max-width: 1000px){
+    .header button {
+        display: block;
+    }
+    .header img {
+        left: 15%;
+    }
+}
+
+@media (max-width: 880px){
+    .header img {
+        width: 60px;
+        left: 30px;
+    }
+}
+
+@media (max-width: 580px){
+    .header button {
+        font-size: 1.5rem;
+    }
+}
+
+@media (max-width: 460px){
+    .header img {
+        display: none;
+    }
+}
+
+@media (max-width: 360px){
+    .header button {
+        right: 20px;
+    }
+}
