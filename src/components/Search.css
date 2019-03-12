@@ -22,8 +22,8 @@
     position: absolute;
     color: black;
     font-size: 1.2rem;
-    top: 10px;
-    left: 10px;
+    top: 10%;
+    left: 2%;
     transition: all 0.3s;
     /* float: left; */
     padding: 10px 0 0 10px;
@@ -35,19 +35,19 @@
 }
 
 .search h2 {
-    margin: 0 0 0 60px;
+    margin: 0 0 0 6%;
     width: 315px;
     padding-top: 8px;
     font-size: 2rem;
+    float: left;
 }
 
 .search form {
     margin-top: 20px;
     padding-bottom: 10px;
     padding-left:10px;
-    text-align: right;
-    width: 425px;
-    display: inline-block;
+    width: 32%;
+    float: right;
 }
 
 .search input[type="text"]{
@@ -57,14 +57,13 @@
     border-left: 2px solid #256bed;
     border-radius: 0 0 0 5px;
     padding: 0 0 2px 10px;
-    width: 40%;
-    margin-right: 15px;
+    width: 80%;
+    margin-right: 4.5%;
 }
 
 .search .searchButton {
     color: #256bed;
     transition: color 0.3s;
-    margin-right: 15px;
 }
 
 .search .searchButton:hover,

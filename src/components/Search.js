@@ -94,13 +94,13 @@ class Search extends Component {
   render() {
     return (
       <div className="search">
-        <div className="searchHeader">
+        <div className="searchHeader clearfix">
           <button className="closeSearch" title="close search" onClick={this.props.closeAndRefresh}><i className="fas fa-times"></i></button>
           <h2>Search for a book!</h2>
           <form action="submit" onSubmit={this.getSearchResults}>
             <label className="visuallyHidden">Search by book or author</label>
             <input type="text" placeholder="Search by book or author" onChange={this.handleChange} />
-            <button aria-label="search button" type="submit" className="searchButton"><i class="fas fa-search"></i></button>
+            <button aria-label="search button" type="submit" className="searchButton"><i className="fas fa-search"></i></button>
           </form>
         </div>
         <div className="searchedBooks">
@@ -115,7 +115,6 @@ class Search extends Component {
 
 }
 
-
 //creating a component for books - makes conditional rendering less messy
 const BookObject = (props) => {
 
@@ -128,7 +127,7 @@ const BookObject = (props) => {
         <p className="bookTitle">{data.best_book.title}</p>
         <p>{data.best_book.author.name}</p>
         <p>{data.average_rating}</p>
-        <button title="Add book to list"className="addBook" onClick={e => props.addBook(data)}>Add Book<i class="fas fa-book-medical"></i></button>
+        <button title="Add book to list"className="addBook" onClick={e => props.addBook(data)}>Add Book<i className="fas fa-book-medical"></i></button>
       </div>
     </div>
   )
