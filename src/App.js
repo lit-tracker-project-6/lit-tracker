@@ -94,9 +94,7 @@ class App extends Component {
     // checking/evaluating value of completion in firebase
     let checkCompletion;
     dbRef.on("value", function(snapshot) {
-      console.log(snapshot);  
       checkCompletion = snapshot.val();
-      console.log(checkCompletion);
     });
     // conditional statement to "toggle" value of isCompleted state
     if (checkCompletion.isCompleted === false) {
