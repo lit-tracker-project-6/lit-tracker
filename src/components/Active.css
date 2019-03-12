@@ -2,13 +2,16 @@
     position: relative;
     float: right;
     width: 70%;
-    /* border: 2px solid #deedf5; */
-    border-radius: 5px;
+    /* background: #deedf5; */
+    /* border: 4px solid #256bed; */
+    border-left: 4px solid #e9d758;
+    border-top: 4px solid #e9d758;
+    border-radius: 20px 20px 0 0;
+    background: rgba(251,251,255,0.8);
 }
 
 .activeHeading {
     height: 120px;
-    /* border: 1px solid red; */
 }
 
 .active h2 {
@@ -85,9 +88,25 @@
 
 .book {
     float:left;
-    width: 49%;
+    width: calc(49% - 20px);
     border-radius: 5px;
-    height: 300px;
+    min-height: 320px;
+    /* border: 2px solid #deedf5; */
+    font-size: 0.9rem;
+    margin: 0 10px 20px;
+    padding: 20px;
+    border-right: 2px solid #256bed; 
+    border-bottom: 2px solid #256bed; 
+    border-radius: 0 0 10px 0;
+}
+
+
+.book:nth-child(2n+3){
+    clear: both;
+}
+
+.bookTitle {
+    margin-top: 0;
 }
 
 .book button {
@@ -117,10 +136,16 @@
 
 
 .bookInfo {
-    width: calc(60% - 30px);
-    margin: 0 20px 0 10px;
+    width: 60%;
     float: left;
-    /* border: 1px solid green; */
+    padding: 0 0 0 10px;
+}
+
+.progressCheck {
+    padding: 0;
+}
+.progressCheck  p{
+    margin: 0;
 }
 
 .progressCheck > * {
@@ -128,10 +153,33 @@
 }
 
 .checkButton {
-    margin: 20px 0 0 10px;;
+    margin: 0px 0 0 10px;;
+}
+
+.checkButton i {
+    font-size: 1rem;
 }
 
 .deleteBook {
-    margin-left: 20px;
+    margin: 10px 0 0 20px;
+}
+
+.addBook {
+    margin: 0 auto;
+    background: #256bed;
+    border: 2px solid #256bed;
+    border-radius: 5px;
+    padding: 5px 10px;
+    color: #fbfbff;
+    transition: all 0.3s;
+}
+
+.addBook:hover {
+    color: #256bed;
+    background: transparent;
+}
+
+.addBook i {
+    margin-left: 10px;
 }
 

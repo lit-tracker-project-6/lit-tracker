@@ -125,10 +125,10 @@ const BookObject = (props) => {
     <div key={data.id["$t"]} className="book" data-key={data.id["$t"]}>
       { printBookCover(data) }
       <div className="bookInfo">
-        <p>{data.best_book.title}</p>
+        <p className="bookTitle">{data.best_book.title}</p>
         <p>{data.best_book.author.name}</p>
         <p>{data.average_rating}</p>
-        <button onClick={e => props.addBook(data)}>Add Book</button>
+        <button title="Add book to list"className="addBook" onClick={e => props.addBook(data)}>Add Book<i class="fas fa-book-medical"></i></button>
       </div>
     </div>
   )

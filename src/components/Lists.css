@@ -1,9 +1,12 @@
 .lists {
     float: left;
     width: 25%;
-    border-right: 2px solid #deedf5;
-    text-align: left;
-    padding: 0 20px 0 0;
+    border-top: 4px solid #e9d758; 
+    border-right: 4px solid #e9d758;
+    border-radius: 20px 20px 0 0;
+    /* text-align: left; */
+    padding: 20px 20px 0 ;
+    background: rgba(251,251,255,0.8);
 }
 
 .lists h2 {
