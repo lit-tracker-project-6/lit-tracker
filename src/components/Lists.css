@@ -4,9 +4,16 @@
     border-top: 4px solid #e9d758; 
     border-right: 4px solid #e9d758;
     border-radius: 20px 20px 0 0;
-    /* text-align: left; */
     padding: 20px 20px 0 ;
     background: rgba(251,251,255,0.8);
+}
+
+.listsMobile {
+    float: none;
+    margin: 0 auto;
+    width: 70%;
+    border-left: 4px solid #e9d758;
+    border-right: none;
 }
 
 .lists h2 {
@@ -80,4 +87,13 @@
 .list button {
 
     float: left;
+}
+
+@media (max-width: 1000px){
+    .lists{
+        display: none;
+    }
+    .listsMobile {
+        display: block;
+    }
 }

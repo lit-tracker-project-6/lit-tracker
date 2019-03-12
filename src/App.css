@@ -54,6 +54,7 @@ h2 {
 .mainContent {
   width: 90%;
   margin: -230px auto 0;
+  position: relative;
 }
 
 .banner {
@@ -62,4 +63,33 @@ h2 {
   background-color: #e9d758;
   transform: skewY(-4deg);
   margin-top: -20px;
+}
+
+/* MEDIA QUERIES */
+
+@media (max-width: 880px){
+  h1 {
+    font-size: 3rem;
+  }
+}
+
+@media (max-width: 580px) {
+  h1 {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 460px){
+  h1 {
+    text-align: left;
+    margin-left: 30px;
+  }
+}
+
+@media (max-width: 360px){
+  h1 {
+    font: 1.8rem;
+    letter-spacing: 3px;
+    margin-left: 20px;
+  }
 }

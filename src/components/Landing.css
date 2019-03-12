@@ -40,3 +40,10 @@
     font-size: 1.8rem;
     margin-bottom: 0;
 }
+
+@media (max-width: 1000px){
+    .landing {
+        float: none;
+        margin: 0 auto;
+    }
+}
