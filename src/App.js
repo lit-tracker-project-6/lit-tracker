@@ -283,7 +283,7 @@ class App extends Component {
           handleListModal={this.handleListModal}
         />
         <div className="banner"></div>
-        <div className="mainContent clearfix">
+        <div className="mainContent clearfix" aria-live='polite'>
           {this.state.activeList === null && this.state.listModal === false &&
             this.state.searchModal !== true && <Landing />}
           <Lists
