@@ -54,6 +54,7 @@ h2 {
 .mainContent {
   width: 90%;
   margin: -230px auto 0;
+  position: relative;
 }
 
 .banner {
