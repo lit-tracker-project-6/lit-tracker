@@ -11,7 +11,7 @@
 .listsMobile {
     float: none;
     margin: 0 auto;
-    width: 70%;
+    width: 50%;
     border-left: 4px solid #e9d758;
     border-right: none;
     display: none;
@@ -76,20 +76,28 @@
     color: #e9d758;
 }
 
-
-
 .list p {
-    margin: 0;
+    margin: 0 10px 0 0;
     float: left;
-    width: 75%;
+    width: calc(75% - 10px);
     cursor: pointer;
 }
 
 .list button {
-
     float: left;
 }
 
+@media (max-width: 1250px){
+    .lists input[type="text"]{
+        width: 90%;
+    }
+}
+
+@media (max-width: 1126px){
+    .list p {
+        width: 65%;
+    }
+}
 
 @media (max-width: 1000px){
     .lists{
@@ -97,6 +105,43 @@
     }
     .listsMobile {
         display: block;
+        padding-left: 50px;
+    }
+    .listsMobile .list {
+        width: 80%;
     }
 }
+
+@media (max-width: 800px){
+    .listsMobile {
+        width: 70%;
+    }
+}
+
+@media (max-width: 650px){
+    .listsMobile {
+        width: 80%;
+    }
+}
+
+@media (max-width: 500px){
+    .listsMobile {
+        width: 100%;
+        padding-left: 30px;
+    }
+    .listsMobile .list {
+        width: 80%;
+    }
+}
+
+@media (max-width: 400px){
+    .listsMobile .list {
+        width: 100%;
+    }
+}
+
+
+
+
+
 
