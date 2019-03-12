@@ -191,8 +191,14 @@
         text-align: left;
     }
     .activeHeadingButtons {
-        margin: 0 0 8px 50px;
+        margin: 0 0 8px 0;
+        padding: 0 10px 0 30px;
+        width: 100%;
         float: left;
+    }
+
+    button.addBooks {
+        float: right;
     }
 }
 
@@ -209,7 +215,6 @@
     .activeHeadingButtons {
         float: right;
         margin-top: 8px;
-        margin-left: 10px;
     }  
 }
 
@@ -218,7 +223,6 @@
         width: 80%;
     }
     .activeHeadingButtons {
-        margin: 0 0 8px 50px;
         float: left;
     }
 }
@@ -231,9 +235,6 @@
 }
 
 @media (max-width: 520px){
-    .activeHeadingButtons {
-        margin: 10px 0 0 20px;
-    }
     .progress{
         margin-bottom: 5px;
         margin-top:0;
@@ -244,7 +245,5 @@
     .sorting button > * {
         margin-top: 0;
     }
-    button.addBooks {
-        float: left;
-    }
+ 
 }
