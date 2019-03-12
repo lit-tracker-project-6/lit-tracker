@@ -16,7 +16,7 @@
     margin: 8px 0px 50px 60px;
     float: left;
     font-size: 2rem;
-    width: 50%;
+    width: 45%;
     text-align: center;
 }
 
@@ -89,7 +89,6 @@
     width: calc(49% - 20px);
     border-radius: 5px;
     min-height: 320px;
-    /* border: 2px solid #deedf5; */
     font-size: 0.9rem;
     margin: 0 10px 20px;
     padding: 20px;
