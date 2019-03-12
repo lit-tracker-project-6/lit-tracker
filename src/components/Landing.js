@@ -13,7 +13,6 @@ class Landing extends Component {
   render() {
     return (
       <div className="landing clearfix">
-        
         <span><i class="fab fa-readme"></i></span>
         <div className="landingHeader">
           <h2>Lit Tracker</h2>

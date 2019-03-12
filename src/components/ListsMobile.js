@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './Lists.css';
 
-class Lists extends Component{
+class ListsMobile extends Component{
   constructor(props) {
     super(props);
     this.state = {
@@ -30,7 +30,7 @@ class Lists extends Component{
 
   render() {
     return(
-      <div className='lists'>
+      <div className='lists listsMobile'>
         <h2>Reading Lists</h2>
         <div className="addList">
           <form action="submit" onSubmit={this.handleSubmit} ref={(el) => this.myFormRef = el}>
@@ -44,7 +44,7 @@ class Lists extends Component{
                 return(
                   <div className="list clearfix" key={data.key}>
                     <i className="fas fa-bookmark"></i>
-                    <p onClick={() => {this.props.handleActiveList(data)}}>{data.listTitle}</p>
+                    <p onClick={() => {this.props.handleActiveListMobile(data)}}>{data.listTitle}</p>
                     <button className="hidden" onClick={() => this.props.deleteList(data.key)}><i className="fas fa-trash"></i></button>
                   </div>
                 )
@@ -56,4 +56,4 @@ class Lists extends Component{
   }
 }
 
-export default Lists;
+export default ListsMobile;

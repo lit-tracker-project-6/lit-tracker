@@ -4,6 +4,7 @@ import firebase from "./firebase.js";
 import Header from "./components/Header.js";
 import Landing from "./components/Landing.js";
 import Lists from "./components/Lists.js";
+import ListsMobile from "./components/ListsMobile.js";
 import Active from "./components/Active.js";
 import Footer from "./components/Footer.js";
 import Search from "./components/Search.js";
@@ -17,9 +18,11 @@ class App extends Component {
       activeListId: null,
       searchModal: false,
       lists: [],
-      activeListObj: {}
+      activeListObj: {},
+      listModal: false
     };
   }
+
 
   // on call, accepts book data from Search.js to adds a book to the active list
   addBook = data => {
@@ -56,7 +59,7 @@ class App extends Component {
     //prompt for sweetalert popup
     Swal.fire({
       title: "Are you sure?",
-      text: "You won't be able to revert this!",
+      text: "You won't be able to undo this!",
       type: "warning",
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
@@ -128,6 +131,36 @@ class App extends Component {
       activeListObj: listObj
     });
   };
+
+  handleActiveListMobile = list => {
+    this.handleSearchModalOff();
+    this.handleListModal();
+    // make a reference to the list node location
+    const dbRef = firebase.database().ref(`lists/${list.key}`);
+    //the key is tied to the button when it is rendered
+    let listObj = {};
+    // take a snapshot of the data
+    dbRef.on("value", function (snapshot) {
+      listObj = snapshot.val();
+    });
+    // console.log('list?',listObj)
+    this.setState({
+      activeList: list.listTitle,
+      activeListId: list.key,
+      activeListObj: listObj
+    });
+  };
+
+  handleListModal = () => {
+    const listModal = !this.state.listModal;
+    this.setState({
+      activeList: null,
+      activeListId: null,
+      searchModal: false,
+      activeListObj: {},
+      listModal
+    })
+  }
 
   handleRefresh = () => {
     const database = firebase.database();
@@ -238,25 +271,36 @@ class App extends Component {
           activeList: null,
           activeListId: null
         });
-      }
+      } 
     });
   };
 
   render() {
     return (
       <div className="App">
-        <Header />
+        <Header 
+          passedState={this.state}
+          handleListModal={this.handleListModal}
+        />
         <div className="banner"></div>
         <div className="mainContent clearfix">
+          {this.state.activeList === null && this.state.listModal === false &&
+            this.state.searchModal !== true && <Landing />}
           <Lists
             passedState={this.state}
             handleActiveList={this.handleActiveList}
             addList={this.addList}
             deleteList={this.deleteList}
           />
-          {this.state.activeList === null &&
-            this.state.searchModal !== true && <Landing />}
-          {this.state.activeList !== null &&
+          {this.state.listModal === true && (
+            <ListsMobile
+              passedState={this.state}
+              handleActiveListMobile={this.handleActiveListMobile}
+              addList={this.addList}
+              deleteList={this.deleteList}
+            />
+          )}
+          {this.state.activeList !== null && 
             this.state.searchModal !== true && (
               <Active
                 passedState={this.state}
@@ -268,7 +312,6 @@ class App extends Component {
                 closeActiveList={this.closeActiveList}
               />
             )}
-
           {this.state.searchModal === true && (
             <Search
               passedState={this.state}
@@ -276,28 +319,7 @@ class App extends Component {
               closeAndRefresh={this.closeAndRefresh}
             />
           )}
-
-          {/* {this.state.activeList !== null ? (
-            <Active
-              passedState={this.state}
-              handleSearchModalOn={this.handleSearchModalOn}
-              deleteList={this.deleteList}
-              deleteBook={this.deleteBook}
-              handleRefresh={this.handleRefresh}
-              markCompleted={this.markCompleted}
-              closeActiveList={this.closeActiveList}
-            />
-          ) : (
-            <Landing />
-          )} */}
         </div>
-        {/* {this.state.searchModal === true ? (
-          <Search 
-            passedState={this.state}
-            addBook={this.addBook}
-            closeAndRefresh={this.closeAndRefresh}
-          />
-        ) : null} */}
         <Footer />
       </div>
     );
