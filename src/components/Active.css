@@ -27,7 +27,8 @@
 
 .progress {
     float: left;  
-    margin-right: 30px;
+    margin-right: 20px;
+    transition: all .3s;
 }
 
 .sorting {
@@ -180,7 +181,21 @@
 }
 
 .complete {
-    background-color: #256bed
+    background: #256bed;
+    border: 1.5px solid #256bed;
+    border-radius: 4px;
+    padding: 0 1.5px;
+    color: #fbfbff;
+    transition: all 0.3s;
+}
+
+.complete::after {
+    content:'\f00c';
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    font-size: .9rem;
+    padding: 0 0 0 3px;
+    margin: 0
 }
 
 @media (max-width: 1350px) {
