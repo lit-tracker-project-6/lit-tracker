@@ -16,7 +16,7 @@
     margin: 8px 0px 50px 60px;
     float: left;
     font-size: 2rem;
-    width: 50%;
+    width: 45%;
     text-align: center;
 }
 
@@ -89,7 +89,6 @@
     width: calc(49% - 20px);
     border-radius: 5px;
     min-height: 320px;
-    /* border: 2px solid #deedf5; */
     font-size: 0.9rem;
     margin: 0 10px 20px;
     padding: 20px;
@@ -181,4 +180,26 @@
 
 .complete {
     background-color: #256bed
+}
+
+@media only screen and (max-width: 1350px) {
+    .active h2 {
+        width: 90%;
+        margin-bottom: 8px;
+        margin-left: 10%;
+        text-align: left;
+    }
+
+    .activeHeadingButtons {
+        margin-bottom: 8px;
+        margin-left: 10%;
+        float: left;
+    }
+}
+
+@media only screen and (max-width: 1000px) {
+    .book {
+        width: calc(99% - 20px);
+        margin-top: 20px;
+    }
 }
