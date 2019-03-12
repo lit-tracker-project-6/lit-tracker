@@ -98,7 +98,6 @@
     border-radius: 0 0 10px 0;
 }
 
-
 .book:nth-child(2n+3){
     clear: both;
 }
@@ -131,7 +130,6 @@
     float: left;
     border-radius: 10px;
 }
-
 
 .bookInfo {
     width: 60%;
