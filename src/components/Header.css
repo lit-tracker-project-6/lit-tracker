@@ -1,3 +1,10 @@
-.header {
-    background: #deedf5;
+.header{
+    position: relative;
+}
+
+.header img {
+    width: 80px;
+    position: absolute;
+    top:0;
+    left: 27%;
 }

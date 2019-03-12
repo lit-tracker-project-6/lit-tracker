@@ -246,6 +246,7 @@ class App extends Component {
     return (
       <div className="App">
         <Header />
+        <div className="banner"></div>
         <div className="mainContent clearfix">
           <Lists
             passedState={this.state}

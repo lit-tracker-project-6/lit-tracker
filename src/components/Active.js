@@ -52,7 +52,7 @@ class Active extends Component {
               <div key={i} className="book">
                 {this.printBookCover(each)}
                 <div className="bookInfo">
-                  <p>Title: {each.bookTitle}</p>
+                  <p className="bookTitle">Title: {each.bookTitle}</p>
                   <p>Author: {each.author}</p>
                   <p>Rating: {each.rating}</p>
                   <div className="progressCheck clearfix">
@@ -76,7 +76,7 @@ class Active extends Component {
               <div key={i} className="book">
                 {this.printBookCover(each)}
                 <div className="bookInfo">
-                  <p>Title: {each.bookTitle}</p>
+                  <p className="bookTitle">Title: {each.bookTitle}</p>
                   <p>Author: {each.author}</p>
                   <p>Rating: {each.rating}</p>
                   <div className="progressCheck clearfix">

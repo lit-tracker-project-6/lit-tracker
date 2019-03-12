@@ -1,5 +1,42 @@
 .landing {
     float: right;
-    border: 2px solid #deedf5;
     width: 70%;
+    background: rgba(251,251,255,0.8);
+    border-left: 4px solid #e9d758;
+    border-top: 4px solid #e9d758;
+    border-radius: 20px 20px 0 0;
+    padding: 100px 100px;
+}
+
+.landing span {
+    float: left;
+    font-size: 4rem;
+    color: #256bed;
+}
+
+.landingHeader {
+    float: left;
+    margin-left: 30px;
+}
+
+.landingHeader h2 {
+    font-size: 2.5rem;
+}
+
+.landingHeader h3 {
+    margin: 10px 0 0;
+    font-size: 1rem;
+    font-weight: 400;
+    font-family: 'Josefin Sans', sans-serif;
+}
+
+.landingContent {
+    clear: both;
+    float: left;
+    margin: 20px 0 0;
+}
+
+.landingContent h3 {
+    font-size: 1.8rem;
+    margin-bottom: 0;
 }
