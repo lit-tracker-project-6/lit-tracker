@@ -77,10 +77,11 @@ class App extends Component {
     });
   };
 
-  markCompleted = data => {
+  markCompleted = (event) => {
     // variables to store the target list id and target book id
     const targetList = this.state.activeListId;
-    const targetBook = data.target.value;
+    const targetBook = event.currentTarget.value;
+    //
 
     // create reference to the target book in the target list
     const dbRef = firebase
@@ -91,7 +92,9 @@ class App extends Component {
     // checking/evaluating value of completion in firebase
     let checkCompletion;
     dbRef.on("value", function(snapshot) {
+      console.log(snapshot);  
       checkCompletion = snapshot.val();
+      console.log(checkCompletion);
     });
     // conditional statement to "toggle" value of isCompleted state
     if (checkCompletion.isCompleted === false) {
