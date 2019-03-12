@@ -21,8 +21,6 @@ button {
   margin: 0;
 }
 
-
-
 /* Global Font Styles */
 h1,h2,h3 {
   font-family: 'Josefin Slab', serif;
@@ -55,6 +53,7 @@ h2 {
   width: 90%;
   margin: -230px auto 0;
   position: relative;
+  margin-bottom: 100px;
 }
 
 .banner {

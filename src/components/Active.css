@@ -55,6 +55,7 @@
 
 .addBooks {
     margin: 5px 20px 0 0;
+    float: right;
 }
 
 .addBooks i {
@@ -182,24 +183,68 @@
     background-color: #256bed
 }
 
-@media only screen and (max-width: 1350px) {
+@media (max-width: 1350px) {
     .active h2 {
         width: 90%;
-        margin-bottom: 8px;
+        margin-bottom: 0px;
         margin-left: 10%;
         text-align: left;
     }
-
     .activeHeadingButtons {
-        margin-bottom: 8px;
-        margin-left: 10%;
+        margin: 0 0 8px 50px;
         float: left;
     }
 }
 
-@media only screen and (max-width: 1000px) {
+@media (max-width: 1000px) {
+    .active {
+        float: none;
+        margin: 0 auto;
+        width: 100%;
+    }
+    .active h2 {
+        width: 40%;
+        margin-left: 60px;
+    }
+    .activeHeadingButtons {
+        float: right;
+        margin-top: 8px;
+        margin-left: 10px;
+    }  
+}
+
+@media (max-width: 876px){
+    .active h2 {
+        width: 80%;
+    }
+    .activeHeadingButtons {
+        margin: 0 0 8px 50px;
+        float: left;
+    }
+}
+
+@media (max-width: 650px){
     .book {
         width: calc(99% - 20px);
         margin-top: 20px;
+    }
+}
+
+@media (max-width: 520px){
+    .activeHeadingButtons {
+        margin: 10px 0 0 20px;
+    }
+    .progress{
+        margin-bottom: 5px;
+        margin-top:0;
+    }
+    .sorting > * {
+        margin: 0 10px 0 0;
+    }
+    .sorting button > * {
+        margin-top: 0;
+    }
+    button.addBooks {
+        float: left;
     }
 }
