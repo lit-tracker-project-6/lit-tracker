@@ -124,10 +124,10 @@ const BookObject = (props) => {
     <div key={data.id["$t"]} className="book" data-key={data.id["$t"]}>
       { printBookCover(data) }
       <div className="bookInfo">
-        <p className="bookTitle">{data.best_book.title}</p>
-        <p>{data.best_book.author.name}</p>
-        <p>{data.average_rating}</p>
-        <button title="Add book to list"className="addBook" onClick={e => props.addBook(data)}>Add Book<i className="fas fa-book-medical"></i></button>
+        <p className="bookTitle">Title: {data.best_book.title}</p>
+        <p>Author: {data.best_book.author.name}</p>
+        <p>Rating: {data.average_rating}</p>
+        <button title="Add book to list" className="addBook" onClick={e => props.addBook(data)}>Add <span className="hide_1015">Book</span><i className="fas fa-book-medical"></i></button>
       </div>
     </div>
   )
@@ -137,7 +137,7 @@ const BookObject = (props) => {
 //loading component - easier to make changes to loading message if segregated as a component
 const Loading = () => {
   return(
-    <p>Loading</p>
+    <p className="loading">Searching . . .</p>
   )
 }
 
