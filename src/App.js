@@ -223,6 +223,7 @@ class App extends Component {
     this.handleSearchModalOff()
     const dbRef = firebase.database().ref("lists");
     let newChild;
+    let newKey;
     //below code sourecd from: https://stackoverflow.com/questions/46447951/child-added-get-last-item-added-javascript
     //reason the event listener is writen last is because the event listener expects a callback so you cannot chain. you must chain the methods before hand - t he query is fired when a new child is added to the database
     dbRef.orderByKey().limitToLast(1).on('child_added', function (snapshot) {
@@ -231,10 +232,12 @@ class App extends Component {
         //orderByKey method orders by the last added item (works well with push, as we are pushing new lists) 
         //limitToLast method limit results from the end of the ordered list results. The value passed is 1, the method is returning one item from the bottom of the list (the latest added item) 
       newChild = snapshot.val();
+      newKey = snapshot.key
     });
     this.setState({
       activeListObj: newChild,
-      activeList: newChild.listTitle
+      activeList: newChild.listTitle,
+      activeListId: newKey
     })
   }
 
@@ -250,6 +253,20 @@ class App extends Component {
       .push(newList)
       this.setNewListToActive();
   };  
+
+  addListMobile = bookList => {
+    this.handleListModal()
+    const newList = {
+      listTitle: `${bookList}`,
+      progress: "0%",
+      books: false
+    };
+    firebase
+      .database()
+      .ref(`lists`)
+      .push(newList)
+    this.setNewListToActive();
+  }; 
 
   //Deletes the list when the button it's attached to is clicked after confirming sweetalert popup
   deleteList = bookId => {
@@ -294,7 +311,7 @@ class App extends Component {
             <ListsMobile
               passedState={this.state}
               handleActiveListMobile={this.handleActiveListMobile}
-              addList={this.addList}
+              addList={this.addListMobile}
               deleteList={this.deleteList}
             />
           )}
