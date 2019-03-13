@@ -198,6 +198,10 @@
     margin: 0
 }
 
+.emptyList {
+    text-align: center;
+}
+
 @media (max-width: 1350px) {
     .active h2 {
         width: 90%;

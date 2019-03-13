@@ -27,7 +27,7 @@ class Active extends Component {
     // check if books is empty
     if (typeof books !== 'object' || books === null) {
       // if yes, render empty
-      return <p>This list is currently empty.</p>;
+      return <p className='emptyList'>This reading list is empty. Add some books!</p>;
       // if no, render books
     } else {
       // prepare a variable array to store the books
