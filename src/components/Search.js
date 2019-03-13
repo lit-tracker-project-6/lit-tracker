@@ -127,7 +127,7 @@ const BookObject = (props) => {
         <p className="bookTitle">Title: {data.best_book.title}</p>
         <p>Author: {data.best_book.author.name}</p>
         <p>Rating: {data.average_rating}</p>
-        <button title="Add book to list" className="addBook" onClick={e => props.addBook(data)}>Add <span className="hide_1015">Book</span><i className="fas fa-book-medical"></i></button>
+        <button aria-label={`Add ${data.best_book.title} to reading list`} title="Add book to list" className="addBook" onClick={e => props.addBook(data)}>Add <span className="hide_1015">Book</span><i className="fas fa-book-medical"></i></button>
       </div>
     </div>
   )
