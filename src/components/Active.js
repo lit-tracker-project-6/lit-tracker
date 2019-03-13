@@ -121,9 +121,9 @@ class Active extends Component {
       // return the percent read, rounded to the nearest integer
       
       if (completedBooks === numBooks) {
-        return <p aria-live="polite" className="progress complete">{progressString} books read</p>;
+        return <p className="progress complete">{progressString} books read</p>;
       } else {
-        return <p aria-live="polite" className="progress">{progressString} books read</p>;
+        return <p className="progress">{progressString} books read</p>;
       }
     }
   } // calculateProgress function ends

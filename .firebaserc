@@ -1,0 +1,6 @@
+{
+  "projects": {
+    "staging": "lit-tracker",
+    "default": "lit-tracker"
+  }
+}
