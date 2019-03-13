@@ -254,6 +254,20 @@ class App extends Component {
       this.setNewListToActive();
   };  
 
+  addListMobile = bookList => {
+    this.handleListModal()
+    const newList = {
+      listTitle: `${bookList}`,
+      progress: "0%",
+      books: false
+    };
+    firebase
+      .database()
+      .ref(`lists`)
+      .push(newList)
+    this.setNewListToActive();
+  }; 
+
   //Deletes the list when the button it's attached to is clicked after confirming sweetalert popup
   deleteList = bookId => {
     Swal.fire({
@@ -297,7 +311,7 @@ class App extends Component {
             <ListsMobile
               passedState={this.state}
               handleActiveListMobile={this.handleActiveListMobile}
-              addList={this.addList}
+              addList={this.addListMobile}
               deleteList={this.deleteList}
             />
           )}
