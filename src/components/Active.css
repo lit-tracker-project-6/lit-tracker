@@ -73,10 +73,12 @@
     position: absolute;
     color: black;
     font-size: 1.2rem;
-    top: 10px;
-    left: 10px;
+    top: 1.25%;
+    left: 2.25%;
+    padding: 10px 0 0 10px;
     transition: all 0.3s;
 }
+
 
 .close:hover {
     color: #256bed;
@@ -217,7 +219,7 @@
     }
 }
 
-@media (max-width: 1000px) {
+@media (max-width: 1015px) {
     .active {
         float: none;
         margin: 0 auto;
