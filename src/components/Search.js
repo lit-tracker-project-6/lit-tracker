@@ -95,15 +95,15 @@ class Search extends Component {
     return (
       <div className="search">
         <div className="searchHeader clearfix">
-          <button className="closeSearch" title="close search" onClick={this.props.closeAndRefresh}><i className="fas fa-times"></i></button>
-          <h2>Search for a book!</h2>
+          <button aria-label="Close Search and return to List" className="closeSearch" title="Close Search" onClick={this.props.closeAndRefresh}><i className="fas fa-times"></i></button>
+          <h2>Add books!</h2>
           <form action="submit" onSubmit={this.getSearchResults}>
-            <label className="visuallyHidden">Search by book or author</label>
-            <input type="text" placeholder="Search by book or author" onChange={this.handleChange} />
-            <button aria-label="search button" type="submit" className="searchButton"><i className="fas fa-search"></i></button>
+            <label htmlFor="searchInput" className="visuallyHidden">Search by book or author</label>
+            <input id="searchInput" type="text" placeholder="Title/Author" onChange={this.handleChange} />
+            <button aria-label="Submit search" type="submit" className="searchButton"><i className="fas fa-search"></i></button>
           </form>
         </div>
-        <div className="searchedBooks">
+        <div aria-live="polite" className="searchedBooks">
           {
             this.state.isLoading ? <Loading /> : 
               this.state.searchResults ? this.printSearchedBooks() : this.noResults()
